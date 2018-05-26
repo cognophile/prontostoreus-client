@@ -1,0 +1,150 @@
+label, input {
+    position: relative;
+    display: block;
+}
+
+/* NAVBAR */
+#navbar {
+    background-color: #71cbfc ;
+}
+
+#navbar-logo-image {
+    float: left;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#navbar-title-text {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2em;
+    vertical-align: bottom;
+}
+
+#home-title {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 4em;
+    text-align: center;
+}
+
+#home-tagline {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2em;
+    text-align: center;
+}
+
+.field-label-large {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5em;
+}
+
+.field-input {
+    width: 30%;
+}
+
+.field-input-center {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.btn {
+    background-color: #71cbfc;
+    border-color: #71cbfc;
+}
+
+/* FORM */
+/* Form Elements */
+/* label {
+    position: relative; 
+}
+
+input {
+    position: relative;
+}
+
+/* Form Labels
+#form-programme-code-label {
+    left:54%;
+}
+
+#form-month-selector-label {
+    left:14%;
+}
+
+#form-authorised-by-label {
+    left: 54%;
+}
+
+#form-exchange-rate-label {
+    left: 26.5%;
+}
+
+#form-year-run-label {
+    left: 14%;
+}
+
+/* Form Inputs
+#form-programme-code-input {
+    left: 54%; 
+    width: 300px;
+}
+
+#form-month-selector-input {
+    position: relative;
+    left: 14%; 
+    width: 300px;
+}
+
+#form-authorised-by-input {
+    left: 54%; 
+    width:300px;
+}
+
+#form-exchange-rate-input {
+    left: 26.5%; 
+    width:300px;
+}
+
+#form-year-run-input {
+    left: 14%; 
+    width: 300px;
+}
+
+/* BUTTONS 
+#form-browse-file-btn {
+    background-color: #026b0e; 
+    border-color: #026b0e; 
+    position:relative; 
+    width:300px;
+}
+
+#form-file-upload-control {
+    width:250px; 
+    left: 30px;
+}
+
+#form-uploaded-filename {
+    position: relative; 
+    width: 300px;
+}
+
+#form-submission-btn {
+    background-color: #026b0e; 
+    border-color: #026b0e; 
+    position:relative; 
+    width:300px;
+} */
+
+/* FOOTER */
+#main-footer {
+    background-color: #f5f5f5; 
+    position: absolute; 
+    right: 0; 
+    bottom: 0; 
+    left: 0; 
+    padding: 1rem; 
+    text-align: center;
+}
+
+#main-footer-content {
+    font-size: 9px;
+}
