@@ -24,12 +24,14 @@ label, input {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 4em;
     text-align: center;
+    padding-top: 50px;
 }
 
 #home-tagline {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 2em;
     text-align: center;
+    padding-top: 10px;
 }
 
 .field-label-large {
@@ -49,6 +51,15 @@ label, input {
 .btn {
     background-color: #71cbfc;
     border-color: #71cbfc;
+}
+
+#data-entry {
+    padding-top: 150px;
+}
+
+#company-list {
+    margin: 0 auto;
+    width: 70%;
 }
 
 /* FORM */
@@ -137,14 +148,10 @@ input {
 /* FOOTER */
 #main-footer {
     background-color: #f5f5f5; 
-    position: absolute; 
-    right: 0; 
-    bottom: 0; 
-    left: 0; 
-    padding: 1rem; 
     text-align: center;
 }
 
 #main-footer-content {
-    font-size: 9px;
+    font-size: 8px;
+    margin: 0 auto;
 }
