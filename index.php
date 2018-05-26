@@ -15,7 +15,8 @@
 	<body>
         <nav id="navbar" class="navbar navbar-dark fixed-top">
             <a id="nav-title" class="navbar-brand" href="index.php">
-                <img id="navbar-logo-image" src="resources/img/prontostoreus.png" width="50" height="50" class="d-inline-block align-top" alt="">
+                <img id="navbar-logo-image" src="resources/img/prontostoreus.png" width="50" height="50" class="d-inline-block align-top" alt="Hi!">
+                <span id="navbar-title-text">Prontostoreus</span>
             </a>
         </nav>
         <br><br>
