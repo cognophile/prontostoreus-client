@@ -1,37 +1,23 @@
-label, input {
+/* GLOBALS */
+label {
     position: relative;
     display: block;
 }
 
-/* NAVBAR */
-#navbar {
-    background-color: #71cbfc ;
-}
-
-#navbar-logo-image {
-    float: left;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-#navbar-title-text {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 2em;
-    vertical-align: bottom;
-}
-
-#home-title {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 4em;
+input {
+    position: relative;
+    display: block;
     text-align: center;
-    padding-top: 50px;
 }
 
-#home-tagline {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 2em;
-    text-align: center;
-    padding-top: 10px;
+.btn {
+    background-color: #c44849;
+    border-color: #c44849;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background-color: #3780d7;
+    border-color: #3780d7;
 }
 
 .field-label-large {
@@ -48,18 +34,67 @@ label, input {
     margin: 0 auto;
 }
 
-.btn {
-    background-color: #71cbfc;
-    border-color: #71cbfc;
+/* NAVBAR */
+#navbar {
+    background-color: #c44849;
+}
+
+#navbar-logo-image {
+    float: left;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+#navbar-title-text {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2em;
+    vertical-align: bottom;
+}
+
+/* FOOTER */
+#main-footer {
+    background-color: #f5f5f5; 
+    text-align: center;
+}
+
+#main-footer-content {
+    font-size: 8px;
+    margin: 0 auto;
+}
+
+#home-title {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 4em;
+    text-align: center;
+    padding-top: 50px;
+}
+
+#home-tagline {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 2em;
+    text-align: center;
+    padding-top: 10px;
 }
 
 #data-entry {
     padding-top: 150px;
 }
 
+#company-list-label {
+    visibility: hidden;
+}
+
 #company-list {
     margin: 0 auto;
     width: 70%;
+}
+
+#next-page-btn {
+    visibility: hidden;
+}
+
+#bottom-btn-navbar {
+    width: 86.5%;
 }
 
 /* FORM */
@@ -145,13 +180,4 @@ input {
     width:300px;
 } */
 
-/* FOOTER */
-#main-footer {
-    background-color: #f5f5f5; 
-    text-align: center;
-}
 
-#main-footer-content {
-    font-size: 8px;
-    margin: 0 auto;
-}

@@ -10,7 +10,10 @@
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
             <link rel="stylesheet" type="text/css" href="../assets/css/styles.css"/>
 
-            <script src="../assets/js/scripts.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script src="../assets/js/location.js"></script>
 
             <title> Prontostoreus - Welcome! </title>
 	</head>
@@ -28,12 +31,12 @@
             <div id="data-entry" class="container-fluid form-group">
                 <div id="location-container" class="container-fluid">
                     <label class="field-label-large d-flex justify-content-center" for="input-location">Please enter your postcode</label>
-                    <input id="input-location" class="field-input-center form-control" name="postcode" type="text" placeholder="e.g. AB12 CDE">  
-                    <br><br>
+                    <input id="input-location" class="field-input-center form-control" name="postcode" type="text" maxlength="8" placeholder="e.g. AB12 CDE">  
                 </div> 
+                <br><br>
                 <div class="row justify-content-center">
                     <span class="input-group-btn">
-                        <button id="location-submission-btn" class="browse btn btn-primary" onclick="addListItem()">Find companies</button>
+                        <button id="location-submission-btn" class="browse btn btn-primary" onclick="postLocation()">Search</button>
                     </span>
                 </div>
             </div>
@@ -42,10 +45,24 @@
         <br><br>
 
         <section>
+            <div id="location-container" class="container-fluid">
+                    <label id="company-list-label" class="field-label-large d-flex justify-content-center" for="company-list">Select a company</label>
+            </div>
             <div id="company-list" class="list-group"></div>
         </section>
+
+        <br><br>
+
+        <section>
+            <div id="bottom-btn-navbar" class="row">
+                <div class="col-12 justify-content-end d-flex">
+                    <span class="input-group-btn">
+                        <a id="next-page-btn" class="browse btn btn-primary" href="application.php">Next</a>
+                    </span>
+                </div>
+            </div>
+        </section>
     
-        </form>    
         </body>
     
         <!--Copyright-->
@@ -54,9 +71,5 @@
                 <p id="main-footer-content">Version <?= getVersion(); ?> <br>© <?= getCopyright(); ?></p>
             </div>
         </nav>
-                
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</body>
 </html>
