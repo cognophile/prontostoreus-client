@@ -8,7 +8,7 @@ function postLocation() {
     var userPostcode = $('#input-location').val();
     var message = "We need a postcode to search by! Please enter this into the box provided.";
 
-    if (!validateField(userPostcode, message)) {
+    if (!validateField(userPostcode, message, '#postcode-alert', 'block', 'visible')) {
         return false;
     }
 
@@ -18,16 +18,22 @@ function postLocation() {
             addListItem(item);
         })
         .fail(function(error) {
-            alert("Unable to post to server: " + error)
+            alert("Unable to post to server: " + error);
+            return false;
     });
 
-    unhideElement('#company-list-label');
-    unhideElement('#next-page-btn');
+    updateLocationPageStructure();
 }
 
-function validateField(input, message) {
+function updateLocationPageStructure() {
+    updateVisibility('#postcode-alert', 'none', 'hidden'); 
+    updateVisibility('#company-list-label', 'block', 'visible');
+    updateVisibility('#next-page-btn', 'block', 'visible');
+}
+
+function validateField(input, message, alertId, dispValue, visValue) {
     if (input == null || input == "") {
-        alert(message);
+        updateVisibility(alertId, dispValue, visValue);
         return false;
     }
     
@@ -48,8 +54,9 @@ function addListItem(data) {
     );
 }
 
-function unhideElement(elementId) { 
-    $(elementId).css('visibility', 'visible');
+function updateVisibility(elementId, dispValue, visValue) { 
+    $(elementId).css('display', dispValue);
+    $(elementId).css('visibility', visValue);
 }
 
 function makeActiveListItem(elementId) {

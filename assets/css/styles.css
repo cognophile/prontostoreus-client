@@ -97,6 +97,12 @@ input {
     width: 86.5%;
 }
 
+/* ALERTS */
+#postcode-alert {
+    visibility: hidden;
+    display: none;
+}
+
 /* FORM */
 /* Form Elements */
 /* label {
