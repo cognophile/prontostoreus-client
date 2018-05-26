@@ -1,4 +1,4 @@
-<?php include 'assets/php/meta.php'; ?>
+<?php include '../assets/php/meta.php'; ?>
 
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,8 @@
 	</head>
 	<body>
         <nav id="navbar" class="navbar navbar-dark">
-            <a id="navbar-title" class="navbar-brand" href="index.php">
-                <img id="navbar-logo-image" src="resources/img/prontostoreus.png" width="50" height="50" class="d-inline-block align-top" alt="">
+            <a id="navbar-title" class="navbar-brand" href="../index.php">
+                <img id="navbar-logo-image" src="../resources/img/prontostoreus.png" width="50" height="50" class="d-inline-block align-top" alt="">
                 <span id="navbar-title-text">Prontostoreus</span>
             </a>
         </nav>
