@@ -106,6 +106,22 @@
                 </span>
             </div>
         </div>
+
+        <section>
+            <div class="row justify-content-center">
+                <span class="input-group-btn">
+                    <a id="next-page-btn" class="browse btn btn-primary" href="location.php">Back</a>
+                </span>
+            </div>
+        </section>
+
+        <section>
+            <div class="row justify-content-center">
+                <span class="input-group-btn">
+                    <a id="next-page-btn" class="browse btn btn-primary" href="x.php">Next</a>
+                </span>
+            </div>
+        </section>
     
         </form>    
         </body>
