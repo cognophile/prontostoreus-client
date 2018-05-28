@@ -12,6 +12,8 @@ function postLocation() {
         return false;
     }
 
+    userPostcode = userPostcode.replace(/\s+/g, '-').toUpperCase();
+
     $.post("apiMock.php", { location: userPostcode })
         .done(function(response) {
             var item = JSON.parse(response);
@@ -44,6 +46,8 @@ function addListItem(data) {
     $("#company-list").empty();
 
     data.forEach(function(data) {
+            data.postcode = data.postcode.replace(/-/g, ' ').toUpperCase();
+
             var itemHtml = "<a class='list-group-item list-group-item-action flex-column align-items-start' onclick='makeActiveListItem(this)'>" 
                             + "<div class='d-flex w-100 justify-content-between'> <h5 id='company-name' class='mb-1'>" + data.name + "</h5>"
                             + "<small id='company-postcode'>" + data.postcode + "</small></div> <p id='company-desc' class='mb-1'>" + data.description + "</p>" 
