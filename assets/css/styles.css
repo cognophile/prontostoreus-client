@@ -34,6 +34,14 @@ input {
     margin: 0 auto;
 }
 
+/* Globals: Bootbox fix detailed in https://github.com/makeusabrew/bootbox/issues/566 */
+.bootbox .modal-header h4 {
+    order: 0;
+}
+.bootbox .modal-header button {
+    order: 1;
+}
+
 /* NAVBAR */
 #navbar {
     background-color: #c44849;

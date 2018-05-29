@@ -27,8 +27,6 @@ function postLocation() {
             alert("Unable to query to server: " + error);
             return false;
     });
-
-    updateLocationPageStructure();
 }
 
 function updateLocationPageStructure() {
@@ -49,17 +47,28 @@ function validateField(input, message, alertId, dispValue, visValue) {
 function addListItem(response) {
     $("#company-list").empty();
 
-    response.data.forEach(function(data) {
+    if (!response.error) {
+        updateLocationPageStructure();
+
+        response.data.forEach(function(data) {
             data._matchingData.Addresses.postcode = data._matchingData.Addresses.postcode.replace(/-/g, ' ').toUpperCase();
 
             var itemHtml = "<a id='company-id-" + data.id + "' class='list-group-item list-group-item-action flex-column align-items-start' onclick='makeActiveListItem(this)'>" 
                             + "<div class='d-flex w-100 justify-content-between'> <h5 id='company-name' class='mb-1'>" + data.name + "</h5>"
                             + "<small id='company-postcode'>" + data._matchingData.Addresses.postcode + "</small></div> <p id='company-desc' class='mb-1'>" + data.description + "</p>" 
-                            + "<small id='company-short'>" + "FAKE" + "</small> </a>";
+                            + "<small id='company-short'>" + data.telephone + "</small> </a>";
 
             $("#company-list").append(itemHtml);
-        }  
-    );
+        });
+    }
+    else {
+        bootbox.alert({ 
+            size: "small",
+            title: "Oops!",
+            message: response.error
+          })
+    }
+    
 }
 
 function updateVisibility(elementId, dispValue, visValue) { 
@@ -73,5 +82,6 @@ function makeActiveListItem(elementId) {
 }
 
 function getChosenItem() {
-    $('.active');
+    var activeItem = $('.active');
+    var companyId = activeItem.attr('id');
 }
