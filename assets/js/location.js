@@ -1,5 +1,3 @@
-const baseApi = 'http://localhost:8765/';
-const locationEndpoint = 'locate/';
 
 $(document).keypress(function(ev){
     if (ev.which == 13){
