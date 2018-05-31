@@ -13,20 +13,30 @@ input {
 .btn {
     background-color: #c44849;
     border-color: #c44849;
+    color: white !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     background-color: #3780d7;
     border-color: #3780d7;
+    color: white !important;
 }
 
 .field-label-large {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.5em;
+    padding-top: 25px;
+}
+
+.field-label-large-nopad {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5em;
+    padding-top: 5px;
 }
 
 .field-input {
     width: 30%;
+    padding-bottom: 5px;
 }
 
 .field-input-center {
@@ -97,8 +107,12 @@ input {
     width: 70%;
 }
 
-#next-page-btn {
+#next-page-btn, #back-page-btn { 
     visibility: hidden;
+}
+
+#next-page-btn-visible-wide, #back-page-btn-visible-wide { 
+    visibility: visible;
 }
 
 #bottom-btn-navbar {
