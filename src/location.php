@@ -21,9 +21,10 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
             
             <!-- Include custom Prontostoreus JavaScript-->
+            <script src="../assets/js/config.js"></script>
             <script src="../assets/js/location.js"></script>
 
-            <title> Prontostoreus - Welcome! </title>
+            <title> Prontostoreus - Location </title>
 	</head>
 	<body>
         <section>
@@ -71,7 +72,7 @@
             <div id="bottom-btn-navbar" class="row">
                 <div class="col-12 justify-content-end d-flex">
                     <span class="input-group-btn">
-                        <a id="next-page-btn" class="browse btn btn-primary" href="application.php">Next</a>
+                        <a id="next-page-btn" class="browse btn btn-primary" href="customerDetails.php">Next</a>
                     </span>
                 </div>
             </div>
