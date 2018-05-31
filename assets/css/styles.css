@@ -115,6 +115,10 @@ input {
     visibility: visible;
 }
 
+#meta-bottom-navbar {
+    width: 99.9%;
+}
+
 #bottom-btn-navbar {
     width: 86.5%;
 }

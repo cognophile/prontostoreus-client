@@ -55,7 +55,7 @@
         
                     <div class="col">
                         <label id="dob-label" class="field-label-large" for="dob-input">Date of birth</label>
-                        <input id="input-location" class="form-control" type="text" name="dob" maxlength="8" placeholder="e.g. dd/mm/yyyy">  
+                        <input id="dob-input" class="form-control" type="text" name="dob" maxlength="8" placeholder="e.g. dd/mm/yyyy">  
                     </div>
                 </div>
         
@@ -122,7 +122,7 @@
         <br>
 
         <section>
-            <div class="row justify-content-center">
+            <div id="meta-bottom-navbar" class="row justify-content-center">
                 <div id="bottom-btn-navbar" class="row">
                     <div class="col-md-6">
                         <div class="col-md-12 justify-content-center d-flex">
@@ -135,7 +135,7 @@
                     <div class="col-md-6">
                         <div class="col-md-12 justify-content-center d-flex">
                             <span class="input-group-btn">
-                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" onclick="validateForm()">Next</a>
+                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" onclick="validateCustomerForm()">Next</a>
                             </span>
                         </div>
                     </div>
