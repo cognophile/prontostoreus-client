@@ -1,26 +1,30 @@
 <?php 
 
-$postcode = htmlspecialchars($_POST["location"]);
+function getLocations() 
+{
+    $postcode = htmlspecialchars($_POST["location"]);
 
-$response = [
-    [
-        "name" => "Company A",
-        "postcode" => $postcode,
-        "description" => "Lorum Ipsum",
-        "short" => "NB: Lorum Ipsum"
-    ], 
-    [
-        "name" => "Company B",
-        "postcode" => $postcode,
-        "description" => "Lorum Ipsum",
-        "short" => "NB: Lorum Ipsum"
-    ],
-    [
-        "name" => "Company C",
-        "postcode" => $postcode,
-        "description" => "Lorum Ipsum",
-        "short" => "NB: Lorum Ipsum"
-    ]
-];
+    $response = [
+        [
+            "name" => "Company A",
+            "postcode" => $postcode,
+            "description" => "Lorum Ipsum",
+            "short" => "NB: Lorum Ipsum"
+        ], 
+        [
+            "name" => "Company B",
+            "postcode" => $postcode,
+            "description" => "Lorum Ipsum",
+            "short" => "NB: Lorum Ipsum"
+        ],
+        [
+            "name" => "Company C",
+            "postcode" => $postcode,
+            "description" => "Lorum Ipsum",
+            "short" => "NB: Lorum Ipsum"
+        ]
+    ];
+    
+    echo json_encode($response);
+}
 
-echo json_encode($response);
