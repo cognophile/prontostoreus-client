@@ -27,7 +27,6 @@
             <title> Prontostoreus - Customer </title>
 	</head>
 
-
 	<body>
         <section>
             <nav id="navbar" class="navbar navbar-dark fixed-top">
@@ -144,11 +143,10 @@
         </section>
     </body>
     
-        <!--Copyright-->
-        <nav id="main-footer" class="navbar fixed-bottom navbar-light bg-light">
-            <div id="main-footer-content" class="navbar-brand container">
-                <p id="main-footer-content">Version <?= getVersion(); ?> <br>© <?= getCopyright(); ?></p>
-            </div>
-        </nav>
-	</body>
+    <!--Copyright-->
+    <nav id="main-footer" class="navbar fixed-bottom navbar-light bg-light">
+        <div id="main-footer-content" class="navbar-brand container">
+            <p id="main-footer-content">Version <?= getVersion(); ?> <br>© <?= getCopyright(); ?></p>
+        </div>
+    </nav>
 </html>
