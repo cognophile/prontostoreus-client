@@ -15,14 +15,12 @@ function postLocation() {
 
     userPostcode = userPostcode.replace(/\s+/g, '-').toUpperCase();
 
-    console.log(baseApi + locationEndpoint + userPostcode);
-
     $.get(baseApi + locationEndpoint + userPostcode)
         .done(function(response) {
             addListItem(response);
         })
         .fail(function(error) {
-            alert("Unable to query to server: " + error);
+            notification('small', 'Server error!', 'Unable to query to server:' + error);
             return false;
     });
 }
@@ -60,11 +58,7 @@ function addListItem(response) {
         });
     }
     else {
-        bootbox.alert({ 
-            size: "small",
-            title: "Oops!",
-            message: response.error
-          })
+        notification('small', 'Oops!', response.error);
     }
     
 }
