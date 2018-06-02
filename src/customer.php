@@ -39,6 +39,8 @@
 
         <section>
             <div id="data-entry" class="container-fluid form-group">
+                <label class="field-label-large-nopad d-flex justify-content-center" for="input-location">Who are you?</label>
+
                 <div class="row">
                     <div class="col">
                         <label id="title-label" class="field-label-large" for="title-selector">Title</label>
@@ -84,7 +86,7 @@
 
                 <br><br><br>
 
-                <label class="field-label-large-nopad d-flex justify-content-center" for="input-location">Address</label>
+                <label class="field-label-large-nopad d-flex justify-content-center" for="input-location">What's your address?</label>
                 <div class="row">
                     <div class="col">
                         <label id="address-line-one-label" class="field-label-large" for="address-line-one-input">First line</label>
