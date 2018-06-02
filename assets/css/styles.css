@@ -95,7 +95,8 @@ input {
 }
 
 #data-entry {
-    padding-top: 150px;
+    position: relative;
+    padding-top: 5%;
 }
 
 #company-list-label {
