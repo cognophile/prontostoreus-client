@@ -7,5 +7,11 @@ const submissionEndpoint = 'submit/';
 const confirmationEndpoint = 'confirm/';
 const invoiceEndpoint = 'invoice/';
 
-
+function notification(size, title, message) {
+    bootbox.alert({ 
+        size: size,
+        title: title,
+        message: message
+      });
+}
 

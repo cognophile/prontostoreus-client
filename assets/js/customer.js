@@ -33,13 +33,5 @@ function isNotNullOrEmpty(field) {
 }
 
 function invalidFormNotification() {
-    notification("small", "You missed a bit!", "You need to fill out all the fields before moving to the next stage.");
-}
-
-function notification(size, title, message) {
-    bootbox.alert({ 
-        size: size,
-        title: title,
-        message: message
-      });
+    notification("small", "You missed a bit!", "You need to fill out all fields before moving to the next stage.");
 }
