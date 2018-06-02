@@ -15,3 +15,6 @@ function notification(size, title, message) {
       });
 }
 
+function isNotNullOrEmpty(field) {
+    return (field !== null && field !== "");
+}

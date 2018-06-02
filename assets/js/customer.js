@@ -28,10 +28,6 @@ function doValidate(fields) {
     return fields.every(isNotNullOrEmpty);
 }
 
-function isNotNullOrEmpty(field) {
-    return (field !== null && field !== "");
-}
-
 function invalidFormNotification() {
     notification("small", "You missed a bit!", "You need to fill out all fields before moving to the next stage.");
 }
