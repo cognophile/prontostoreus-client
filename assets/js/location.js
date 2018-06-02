@@ -20,7 +20,7 @@ function postLocation() {
             addListItem(response);
         })
         .fail(function(error) {
-            notification('small', 'Server error!', 'Unable to query to server:' + error);
+            notification('small', 'Server error!', 'Unable to communicate with the server: ' + error);
             return false;
     });
 }
