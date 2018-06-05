@@ -21,21 +21,22 @@ function validateCustomerForm() {
     var fields = [dob, firstname, surname, email, telephone, lineOne, lineTwo, town, county, postcode]; 
     var isValid = doValidate(fields); 
 
-    /*
-            'lineOne': lineOne, 
-        'lineTwo': lineTwo, 
-        'town': town, 
-        'county': county, 
-        'postcode': postcode
-    */
-
     var details = { 
-        'title': title, 
-        'dob': dob,
-        'firstname': firstname, 
-        'surname': surname, 
-        'email': email, 
-        'telephone': telephone, 
+        customers: {
+            'title': title, 
+            'dob': dob,
+            'firstname': firstname, 
+            'surname': surname, 
+            'email': email, 
+            'telephone': telephone 
+        },
+        addresses: {
+            'lineOne': lineOne, 
+            'lineTwo': lineTwo, 
+            'town': town, 
+            'county': county, 
+            'postcode': postcode
+        }
     };
 
     isValid ? postCustomer(details) : invalidFormNotification();
@@ -50,7 +51,6 @@ function invalidFormNotification() {
 }
 
 function postCustomer(data) {
-    // Post data
     $.post(baseApi + customerEndpoint, data)
         .done(function(response) {
             var title = (response.success) ? 'Got it!' : '';
@@ -61,8 +61,4 @@ function postCustomer(data) {
             var title = (!error.success) ? 'Oops!' : '';
             notify(error.success, error.error + error.message);
     });
-
-
-    // Load application.php on success
-    //window.location.href = 
 }
