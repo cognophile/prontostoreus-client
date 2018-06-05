@@ -45,10 +45,12 @@
                     <div class="col">
                         <label id="title-label" class="field-label-large" for="title-selector">Title</label>
                         <select id="title-selector" class="form-control" required="true">
-                            <option value="mr">Mr</option>
-                            <option value="ms">Ms</option>
-                            <option value="mrs">Mrs</option>
-                            <option value="dr">Dr</option>
+                            <option value="Mr">Mr</option>
+                            <option value="Ms">Ms</option>
+                            <option value="Mrs">Mrs</option>
+                            <option value="Mx">Mx</option>
+                            <option value="Dr">Dr</option>
+                            <option value="Prof">Prof</option>
                         </select>
                     </div>
                     
@@ -56,7 +58,7 @@
         
                     <div class="col">
                         <label id="dob-label" class="field-label-large" for="dob-input">Date of birth</label>
-                        <input id="dob-input" class="form-control" type="text" name="dob" maxlength="8" placeholder="e.g. dd/mm/yyyy">  
+                        <input id="dob-input" class="form-control" type="text" name="dob" maxlength="10" placeholder="e.g. yyyy/mm/dd">  
                     </div>
                 </div>
         
