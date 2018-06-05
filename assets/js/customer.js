@@ -54,7 +54,8 @@ function postCustomer(data) {
     $.post(baseApi + customerEndpoint, data)
         .done(function(response) {
             var title = (response.success) ? 'Got it!' : '';
-            notifyAndLoadPage(title, response.message, 'application.php?customer=' + response.data, 'customer.php');
+            notifyAndLoadPage(title, response.message, 
+                'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data);
         })
         .fail(function(error) {
             var title = (!error.success) ? 'Oops!' : '';

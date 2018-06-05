@@ -37,6 +37,11 @@ function isNotNullOrEmpty(field) {
     return (field !== null && field !== "");
 }
 
+function getUrlParameter(key) {
+    var url = new URL(window.location.href);
+    return value = url.searchParams.get(key);
+}
+
 function apiGet(endpoint, data = "") {
     // $.get(baseApi + endpoint + data)
     //     .done(function(response) {
