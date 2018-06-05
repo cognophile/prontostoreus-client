@@ -9,11 +9,11 @@ function validateLocation() {
     var userPostcode = $('#input-location').val();
 
     if (!validateField(userPostcode)) {
-        notification('small', 'You missed a bit!', 'We need a postcode to search by. Please enter this into the box.');
+        notify('You missed a bit!', 'We need a postcode to search by. Please enter this into the box.');
         return false;
     }
     else {
-        postLocation(userPostcode);
+        getLocations(userPostcode);
     }
 }
 
@@ -25,7 +25,7 @@ function validateField(inputField) {
     return true;
 }
 
-function postLocation(userPostcode) {
+function getLocations(userPostcode) {
     
     userPostcode = userPostcode.replace(/\s+/g, '-').toUpperCase();
 
@@ -34,7 +34,7 @@ function postLocation(userPostcode) {
             addListItem(response);
         })
         .fail(function(error) {
-            notification('small', 'Server error!', 'Unable to communicate with the server: ' + error);
+            notify('Server error!', 'Unable to communicate with the server: ' + error);
             return false;
     });
 }
@@ -62,7 +62,7 @@ function addListItem(response) {
         });
     }
     else {
-        notification('small', 'Oops!', response.error);
+        notify('Oops!', response.error);
     }
     
 }
@@ -79,5 +79,13 @@ function makeActiveListItem(elementId) {
 
 function getChosenItem() {
     var activeItem = $('.active');
-    var companyId = activeItem.attr('id');
+    var elementId = activeItem.attr('id');
+
+    if (activeItem.length > 0) {
+        var companyId = elementId.split('-').slice(2).join('-');
+        window.location.href = 'customer.php?company=' + companyId;
+    } 
+    else {
+        notify('Oops!', 'It appears you might not have selected a company - please click one, then click \'next\' again.');
+    }
 }

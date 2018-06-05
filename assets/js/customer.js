@@ -21,7 +21,24 @@ function validateCustomerForm() {
     var fields = [dob, firstname, surname, email, telephone, lineOne, lineTwo, town, county, postcode]; 
     var isValid = doValidate(fields); 
 
-    isValid ? window.location.href = "application.php" : invalidFormNotification();
+    /*
+            'lineOne': lineOne, 
+        'lineTwo': lineTwo, 
+        'town': town, 
+        'county': county, 
+        'postcode': postcode
+    */
+
+    var details = { 
+        'title': title, 
+        'dob': dob,
+        'firstname': firstname, 
+        'surname': surname, 
+        'email': email, 
+        'telephone': telephone, 
+    };
+
+    isValid ? postCustomer(details) : invalidFormNotification();
 }
 
 function doValidate(fields) {
@@ -29,5 +46,22 @@ function doValidate(fields) {
 }
 
 function invalidFormNotification() {
-    notification("small", "You missed a bit!", "You need to fill out all fields before moving to the next stage.");
+    notify('You missed a bit!', 'You need to fill out all fields before moving to the next stage.');
+}
+
+function postCustomer(data) {
+    // Post data
+    $.post(baseApi + customerEndpoint, data)
+        .done(function(response) {
+            var title = (response.success) ? 'Got it!' : '';
+            notifyAndLoadPage(title, response.message, 'application.php?customer=' + response.data, 'customer.php');
+        })
+        .fail(function(error) {
+            var title = (!error.success) ? 'Oops!' : '';
+            notify(error.success, error.error + error.message);
+    });
+
+
+    // Load application.php on success
+    //window.location.href = 
 }
