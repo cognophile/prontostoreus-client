@@ -5,14 +5,28 @@ $(document).keypress(function(ev) {
     }
 });
 
-function postLocation() {
+function validateLocation() {
     var userPostcode = $('#input-location').val();
-    var message = "We need a postcode to search by! Please enter this into the box provided.";
 
-    if (!validateField(userPostcode, message, '#postcode-alert', 'block', 'visible')) {
+    if (!validateField(userPostcode)) {
+        notification('small', 'You missed a bit!', 'We need a postcode to search by. Please enter this into the box.');
         return false;
     }
+    else {
+        postLocation(userPostcode);
+    }
+}
 
+function validateField(inputField) {
+    if (inputField == null || inputField == "") {
+        return false;
+    }
+    
+    return true;
+}
+
+function postLocation(userPostcode) {
+    
     userPostcode = userPostcode.replace(/\s+/g, '-').toUpperCase();
 
     $.get(baseApi + locationEndpoint + userPostcode)
@@ -26,18 +40,8 @@ function postLocation() {
 }
 
 function updateLocationPageStructure() {
-    updateVisibility('#postcode-alert', 'none', 'hidden'); 
     updateVisibility('#company-list-label', 'block', 'visible');
     updateVisibility('#next-page-btn', 'block', 'visible');
-}
-
-function validateField(input, message, alertId, dispValue, visValue) {
-    if (input == null || input == "") {
-        updateVisibility(alertId, dispValue, visValue);
-        return false;
-    }
-    
-    return true;
 }
 
 function addListItem(response) {

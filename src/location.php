@@ -45,14 +45,8 @@
                 <br><br>
                 <div class="row justify-content-center">
                     <span class="input-group-btn">
-                        <button id="location-submission-btn" class="browse btn btn-primary" onclick="postLocation()">Search</button>
+                        <button id="location-submission-btn" class="browse btn btn-primary" onclick="validateLocation()">Search</button>
                     </span>
-                </div>
-                <br>
-                <div class="row justify-content-center">
-                    <div id="postcode-alert" class="alert alert-warning" role="alert">
-                        Please enter a valid UK postcode
-                    </div>
                 </div>
             </div>
         </section>
