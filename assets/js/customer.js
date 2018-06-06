@@ -22,20 +22,18 @@ function validateCustomerForm() {
     var isValid = doValidate(fields); 
 
     var details = { 
-        customer: {
-            'title': title, 
-            'dob': dob,
-            'firstname': firstname, 
-            'surname': surname, 
-            'email': email, 
-            'telephone': telephone, 
-            address: {
-                'lineOne': lineOne, 
-                'lineTwo': lineTwo, 
-                'town': town, 
-                'county': county, 
-                'postcode': postcode
-            }
+        'title': title, 
+        'dob': dob,
+        'firstname': firstname, 
+        'surname': surname, 
+        'email': email, 
+        'telephone': telephone, 
+        addresses: {
+            'line_one': lineOne, 
+            'line_two': lineTwo, 
+            'town': town, 
+            'county': county, 
+            'postcode': postcode
         }
     };
 
@@ -59,6 +57,6 @@ function postCustomer(data) {
         })
         .fail(function(error) {
             var title = (!error.success) ? 'Oops!' : '';
-            notify(error.success, error.error + error.message);
+            notify(title, error.success, error.message + error.error);
     });
 }
