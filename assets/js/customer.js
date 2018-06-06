@@ -22,20 +22,20 @@ function validateCustomerForm() {
     var isValid = doValidate(fields); 
 
     var details = { 
-        customers: {
+        customer: {
             'title': title, 
             'dob': dob,
             'firstname': firstname, 
             'surname': surname, 
             'email': email, 
-            'telephone': telephone 
-        },
-        addresses: {
-            'lineOne': lineOne, 
-            'lineTwo': lineTwo, 
-            'town': town, 
-            'county': county, 
-            'postcode': postcode
+            'telephone': telephone, 
+            address: {
+                'lineOne': lineOne, 
+                'lineTwo': lineTwo, 
+                'town': town, 
+                'county': county, 
+                'postcode': postcode
+            }
         }
     };
 
