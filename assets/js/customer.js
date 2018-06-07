@@ -48,6 +48,10 @@ function invalidFormNotification() {
     notify('You missed a bit!', 'You need to fill out all fields before moving to the next stage.');
 }
 
+function getErrorString(error) {
+    return JSON.stringify(error);
+}
+
 function postCustomer(data) {
     $.post(baseApi + customerEndpoint, data)
         .done(function(response) {
@@ -57,6 +61,6 @@ function postCustomer(data) {
         })
         .fail(function(error) {
             var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + error.statusText);  
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getErrorString(error.responseJSON.error));  
     });
 }
