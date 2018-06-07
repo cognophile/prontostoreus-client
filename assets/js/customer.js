@@ -56,7 +56,7 @@ function postCustomer(data) {
                 'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data);
         })
         .fail(function(error) {
-            var title = (!error.success) ? 'Oops!' : '';
-            notify(title, error.success, error.message + error.error);
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + error.statusText);  
     });
 }
