@@ -21,6 +21,7 @@ function validateCustomerForm() {
     var fields = [dob, firstname, surname, email, telephone, lineOne, lineTwo, town, county, postcode]; 
     var isValid = doValidate(fields); 
 
+    postcode = postcode.replace(/\s+/g, '-').toUpperCase();
     var details = { 
         'title': title, 
         'dob': dob,
