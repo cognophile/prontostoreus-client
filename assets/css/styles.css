@@ -11,14 +11,14 @@ input {
 }
 
 .btn {
-    background-color: #c44849;
-    border-color: #c44849;
+    background-color: #3e3285;
+    border-color: #3e3285;
     color: white !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
-    background-color: #3780d7;
-    border-color: #3780d7;
+    background-color: #634db3;
+    border-color: #634db3;
     color: white !important;
 }
 
@@ -54,7 +54,7 @@ input {
 
 /* NAVBAR */
 #navbar {
-    background-color: #c44849;
+    background-color: #3e3285;
 }
 
 #navbar-logo-image {
