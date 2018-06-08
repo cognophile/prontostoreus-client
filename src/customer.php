@@ -65,24 +65,24 @@
                 <div class="row">
                     <div class="col">
                         <label id="firstname-label" class="field-label-large" for="firstname-input">Firstname</label>
-                        <input id="firstname-input" class="form-control" type="text" name="firstname" placeholder="e.g. Isaac" required="true">
+                        <input id="firstname-input" class="form-control" type="text" name="firstname" maxlength="128" placeholder="e.g. Isaac" required="true">
                     </div>
         
                     <div class="col">
                         <label id="surname-label" class="field-label-large" for="surname-input">Surname</label>
-                        <input id="surname-input" class="form-control" type="text" name="surname" placeholder="e.g. Newton" required="true">
+                        <input id="surname-input" class="form-control" type="text" name="surname" maxlength="128" placeholder="e.g. Newton" required="true">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <label id="email-label" class="field-label-large" for="email-input">Email</label>
-                        <input id="email-input" class="form-control" type="text" name="email" placeholder="e.g. isaac-newton@cambridge.co.uk" required="true">
+                        <input id="email-input" class="form-control" type="text" name="email" maxlength="128" placeholder="e.g. isaac-newton@cambridge.co.uk" required="true">
                     </div>
         
                     <div class="col">
                         <label id="telephone-label" class="field-label-large" for="telephone-input">Telephone</label>
-                        <input id="telephone-input" class="form-control" type="text" name="telephone" placeholder="e.g. 01234 567891" required="true">
+                        <input id="telephone-input" class="form-control" type="text" name="telephone" maxlength="11" placeholder="e.g. 01234 567891" required="true">
                     </div>
                 </div>
 
@@ -92,31 +92,31 @@
                 <div class="row">
                     <div class="col">
                         <label id="address-line-one-label" class="field-label-large" for="address-line-one-input">First line</label>
-                        <input id="address-line-one-input" class="form-control" name="line-one" type="text" placeholder="e.g. Woolsthorpe Manor House" required="true">
+                        <input id="address-line-one-input" class="form-control" name="line-one" type="text" maxlength="128" placeholder="e.g. Woolsthorpe Manor House" required="true">
                     </div>
         
                     <div class="col">
                         <label id="address-line-two-label" class="field-label-large" for="address-line-two-input">Second line</label>
-                        <input id="address-line-two-input" class="form-control" name="line-two" type="text" placeholder="e.g. Water lane">
+                        <input id="address-line-two-input" class="form-control" name="line-two" type="text" maxlength="128" placeholder="e.g. Water lane">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <label id="town-label" class="field-label-large" for="town-input">Town/City</label>
-                        <input id="town-input" class="form-control" type="text" name="town" placeholder="e.g. Grantham" required="true">
+                        <input id="town-input" class="form-control" type="text" name="town" maxlength="128" placeholder="e.g. Grantham" required="true">
                     </div>
         
                     <div class="col">
                         <label id="county-label" class="field-label-large" for="county-input">County</label>
-                        <input id="county-input" class="form-control" type="text" name="county" placeholder="e.g. Lincolnshire" required="true">
+                        <input id="county-input" class="form-control" type="text" name="county" maxlength="128" placeholder="e.g. Lincolnshire" required="true">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
                         <label id="postcode-label" class="field-label-large" or="postcode-input">Postcode</label>
-                        <input id="postcode-input" class="form-control" name="postcode" type="text" placeholder="e.g. NG33 5NR" required="true"> 
+                        <input id="postcode-input" class="form-control" name="postcode" type="text" maxlength="8" placeholder="e.g. NG33 5NR" required="true"> 
                     </div>
                 </div>
             </div>
