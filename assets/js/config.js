@@ -7,6 +7,12 @@ const applicationEndpoint = 'apply/';
 const confirmationEndpoint = 'confirm/';
 const invoiceEndpoint = 'invoice/';
 
+/**
+ * Render a notification window to the UI
+ * @param {string} title 
+ * @param {string} message 
+ * @return {void}
+ */
 function notify(title, message) {
     bootbox.alert({ 
         title: title,
@@ -14,6 +20,15 @@ function notify(title, message) {
     });
 }
 
+/**
+ * Render a notification to the user and subsequently navigate to
+ *  another page.
+ * @param {string} title 
+ * @param {string} message 
+ * @param {string} nextUrl 
+ * @param {string} fallbackUrl 
+ * @return {void}
+ */
 function notifyAndLoadPage(title, message, nextUrl, fallbackUrl) {
     bootbox.confirm({ 
         title: title,
@@ -33,13 +48,27 @@ function notifyAndLoadPage(title, message, nextUrl, fallbackUrl) {
     });
 }
 
+/**
+ * Equate whether the given field is NULL or an empty string
+ * @param {*} field 
+ * @return {boolean}
+ */
 function isNotNullOrEmpty(field) {
     return (field !== null && field !== "");
 }
 
+/**
+ * Fetch the specified parameter from the current URL
+ * @param {string} key 
+ * @return {*} value
+ */
 function getUrlParameter(key) {
     var url = new URL(window.location.href);
     return value = url.searchParams.get(key);
+}
+
+function requestLink(currentPage) {
+
 }
 
 function apiGet(endpoint, data = "") {

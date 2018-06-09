@@ -1,9 +1,18 @@
+/**
+ * Add a keypress event listener to the 'Enter' key
+ *  to fire the form validation method. 
+ */
 $(document).keypress(function(ev) {
     if (ev.which === 13) {
         validateCustomerForm();
     }
 });
 
+/**
+ * Perform validation of the customer form before calling to post 
+ *  the form data to the API.
+ * @return {void}
+ */
 function validateCustomerForm() {
     var title = $('#title-selector').val();
     var dob = $('#dob-input').val();
@@ -41,27 +50,45 @@ function validateCustomerForm() {
     isValid ? postCustomer(details) : invalidFormNotification();
 }
 
+/**
+ * Binding to check each element of the given array 
+ *  against the isNotNullOrEmpty method
+ * @param {*} fields 
+ */
 function doValidate(fields) {
     return fields.every(isNotNullOrEmpty);
 }
 
+/**
+ * Render a notification to user that the present form is incomplete
+ */
 function invalidFormNotification() {
     notify('You missed a bit!', 'You need to fill out all fields before moving to the next stage.');
 }
 
-function getErrorString(error) {
+/**
+ * Return a string representation of a JSON representation.
+ * @param {object} error 
+ */
+function getJsonString(error) {
     return JSON.stringify(error);
 }
 
+/**
+ * Perform an AJAX post of the given data to the Customer
+ *  API endpoint. On success, will load the next page and 
+ *  notifies of errors on failure.
+ * @param {array} data 
+ */
 function postCustomer(data) {
     $.post(baseApi + customerEndpoint, data)
         .done(function(response) {
             var title = (response.success) ? 'Got it!' : '';
             notifyAndLoadPage(title, response.message, 
-                'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data);
+                'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data.addresses.customer_id);
         })
         .fail(function(error) {
             var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getErrorString(error.responseJSON.error));  
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
     });
 }
