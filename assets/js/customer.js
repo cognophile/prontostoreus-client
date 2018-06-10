@@ -27,7 +27,7 @@ function validateCustomerForm() {
     var county = $('#county-input').val();
     var postcode = $('#postcode-input').val();
 
-    var fields = [dob, firstname, surname, email, telephone, lineOne, lineTwo, town, county, postcode]; 
+    var fields = [dob, firstname, surname, email, telephone, lineOne, town, county, postcode]; 
     var isValid = doValidate(fields); 
 
     postcode = postcode.replace(/\s+/g, '-').toUpperCase();
