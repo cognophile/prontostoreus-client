@@ -1,7 +1,7 @@
 const baseApi = 'http://localhost:8765/';
 
 const locationEndpoint = 'locate/';
-const customerEndpoint = 'details/';
+const customerEndpoint = 'customer/';
 const applicationEndpoint = 'apply/';
 const confirmationEndpoint = 'confirm/';
 const invoiceEndpoint = 'invoice/';

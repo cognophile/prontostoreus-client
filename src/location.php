@@ -40,7 +40,7 @@
             <div id="data-entry" class="container-fluid form-group">
                 <div id="location-container" class="container-fluid">
                     <label class="field-label-large d-flex justify-content-center" for="input-location">Please enter your postcode</label>
-                    <input id="input-location" class="field-input-center form-control" name="postcode" type="text" maxlength="8" placeholder="e.g. AB12 CDE">  
+                    <input id="input-location" class="field-input-center form-control" name="postcode" type="text" maxlength="8" placeholder="e.g. AB12 3DE">  
                 </div> 
                 <br><br>
                 <div class="row justify-content-center">
