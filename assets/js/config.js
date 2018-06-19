@@ -47,6 +47,12 @@ function notifyAndLoadPage(title, message, nextUrl, fallbackUrl) {
     });
 }
 
+function loadPage(nextUrl) {
+    if (nextUrl) {
+        window.location.href = nextUrl;
+    }
+}
+
 /**
  * Equate whether the given field is NULL or an empty string
  * @param {*} field 
