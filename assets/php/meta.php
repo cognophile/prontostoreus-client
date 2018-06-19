@@ -2,7 +2,7 @@
 
 function getVersion()
 {
-    return "0.3.0";
+    return "0.5.0";
 }
 
 function getCopyright()
