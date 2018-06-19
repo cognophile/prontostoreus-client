@@ -31,7 +31,7 @@
             <nav id="navbar" class="navbar navbar-dark fixed-top">
                 <a id="navbar-title" class="navbar-brand" href="../index.php">
                     <img id="navbar-logo-image" src="../resources/img/prontostoreus.png" width="50" height="50" class="d-inline-block align-top" alt="">
-                    <span id="navbar-title-text">Prontostoreus</span>
+                    <span id="navbar-title-text">Prontostoreus: Locate a Company</span>
                 </a>
             </nav>
         </section>

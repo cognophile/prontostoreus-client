@@ -33,7 +33,7 @@
             <nav id="navbar" class="navbar navbar-dark fixed-top">
                 <a id="navbar-title" class="navbar-brand" href="../index.php">
                     <img id="navbar-logo-image" src="../resources/img/prontostoreus.png" width="50" height="50" class="d-inline-block align-top" alt="">
-                    <span id="navbar-title-text">Prontostoreus</span>
+                    <span id="navbar-title-text">Prontostoreus: Customer Details</span>
                 </a>
             </nav>
         </section>
@@ -131,7 +131,7 @@
                     <div class="col-md-6">
                         <div class="col-md-12 justify-content-center d-flex">
                             <span class="input-group-btn">
-                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" href="location.php">Back</a>
+                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" href="javascript:history.back()">Back</a>
                             </span>
                         </div>
                     </div>
