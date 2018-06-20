@@ -50,6 +50,17 @@ input {
     margin: 0 auto;
 }
 
+.column-center {
+    float: none;
+    margin: 0 auto;
+}
+
+.vertical-center {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
 /* Globals: Bootbox fix detailed in https://github.com/makeusabrew/bootbox/issues/566 */
 .bootbox .modal-header h4 {
     order: 0;
@@ -112,6 +123,10 @@ input {
 #company-list {
     margin: 0 auto;
     width: 70%;
+}
+
+#collection-label {
+    padding-right: 10px;
 }
 
 #next-page-btn, #back-page-btn { 
