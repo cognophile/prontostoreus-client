@@ -131,7 +131,7 @@
                     <div class="col-md-6">
                         <div class="col-md-12 justify-content-center d-flex">
                             <span class="input-group-btn">
-                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" href="javascript:history.back()">Back</a>
+                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" href="javascript:history.back()">Previous</a>
                             </span>
                         </div>
                     </div>
