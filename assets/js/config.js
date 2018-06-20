@@ -54,6 +54,22 @@ function loadPage(nextUrl) {
 }
 
 /**
+ * Display an informational popover to the user to inform what 
+ *  the value required by, or information in, this element represents
+ */
+function renderPopover(elementId, title, content) {
+    $('#' + elementId)
+        .popover({ 
+            title: title, 
+            content: content 
+        })
+        .blur(function () {
+            $(this).popover('hide');
+        });
+}
+
+
+/**
  * Equate whether the given field is NULL or an empty string
  * @param {*} field 
  * @return {boolean}
