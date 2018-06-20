@@ -66,7 +66,7 @@
             <div id="bottom-btn-navbar" class="row">
                 <div class="col-12 justify-content-end d-flex">
                     <span class="input-group-btn">
-                        <a id="next-page-btn" class="browse btn btn-primary" onclick="getChosenCompany()">Next</a>
+                        <a id="next-page-btn" class="browse btn btn-primary" onclick="getChosenCompany()">Continue</a>
                     </span>
                 </div>
             </div>

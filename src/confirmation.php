@@ -78,13 +78,13 @@
             </div>
         </section>
         
-=        <section>
+        <section>
             <div id="meta-bottom-navbar" class="row justify-content-center">
                 <div id="bottom-btn-navbar" class="row">
                     <div class="col-md-6">
                         <div class="col-md-12 justify-content-center d-flex">
                             <span class="input-group-btn">
-                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" href="javascript:history.back()">Back</a>
+                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" href="javascript:history.back()">Previous</a>
                             </span>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                         <div class="col-md-12 justify-content-center d-flex">
                             <span class="input-group-btn">
                                 <a id="next-page-btn-visible-wide" class="browse btn btn-primary" 
-                                    onclick="requireConfirmation('Do you accept?', 'To finalise this application, please accept the terms and conditions. If you decline, the application will be cancelled.')">Next</a>
+                                    onclick="requireConfirmation('Do you accept?', 'To finalise this application, please accept the terms and conditions. If you decline, the application will be cancelled.')">Continue</a>
                             </span>
                         </div>
                     </div>
