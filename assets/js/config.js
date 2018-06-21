@@ -82,11 +82,24 @@ function isNotNullOrEmpty(field) {
 /**
  * Fetch the specified parameter from the current URL
  * @param {string} key 
- * @return {*} value
+ * @return {string} value
  */
 function getUrlParameter(key) {
     var url = new URL(window.location.href);
     return value = url.searchParams.get(key);
+}
+
+/**
+ * Format a given date to a custom supported format
+ * @param {Object} date The date of which to format
+ * @param {string} format The format for which the date will take
+ * @return {string} dateFormatted The formatted date string
+ */
+function dateFormat(date, format) {
+    if (format === 'Y-m-d h:i:s') {
+        return date.getFullYear()  + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2) + 
+            " " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
+    }
 }
 
 function identifyHyperlink(currentPage) {
