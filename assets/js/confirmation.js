@@ -1,12 +1,12 @@
 function acceptTerms(selection) {
-    // var data = {
-    //    'application_id': getUrlParameter('application'),
-    //    'accepted': selection,
-    //    'date_accepted':  dateFormat(new Date(), 'Y-m-d')
-    // };
+    var dateFormatted = dateFormat(new Date(), 'Y-m-d h:i:s');
+    var data = {
+       'application_id': getUrlParameter('application'),
+       'accepted': + selection,
+       'date_accepted':  dateFormatted
+    };
 
-    // postConfirmation(data);
-    notify('Mock Alert', 'Mock: User clicked: ' + selection);
+    postConfirmation(data);
 }
 
 function postConfirmation(data) {
@@ -15,8 +15,7 @@ function postConfirmation(data) {
             loadPage('invoice.php?application=' + getUrlParameter('application'));
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            notify('Oops!', 'We couldn\'t communicate with the server to complete your request!');
     });
 }
 
