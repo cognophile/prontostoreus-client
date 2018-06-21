@@ -13,16 +13,23 @@ function hideAddButton() {
 
 }
 
+function getFurnishingSize()
+{
+    var size = "25", majorUnit = "m", minorUnit = "2";
+    return size + majorUnit + minorUnit.sup(); 
+}
 
 function calculateLinePrice() {
-
+    var currency = "£", price = "13.50";
+    return currency + price; 
 }
 
 function addLine() {
+    var lineCounter = globalCounter;
     var applicationLineHtml = "<br><div class=\"row\">" + 
         "<div class=\"col\">" +
             "<label id=\"room-selector-label\" class=\"field-label\" for=\"room-selector\">Room</label>" +
-            "<select id=\"room-selector\" class=\"form-control\" name=\"room\" required=\"true\">" +
+            "<select id=\"room-selector-" + lineCounter + "\" class=\"form-control\" name=\"room\" required=\"true\">" +
                 "<option value=\"1\">Living room</option>" +
                 "<option value=\"2\">Kitchen</option>" +
                 "<option value=\"3\">Bedroom</option>" +
@@ -32,7 +39,7 @@ function addLine() {
         "</div>" +
         "<div class=\"col\">" +
             "<label id=\"furnishing-selector-label\" class=\"field-label\" for=\"furnishing-selector\">Furnishing</label>" +
-            "<select id=\"furnishing-selector\" class=\"form-control\" name=\"furnishing\" required=\"true\">" +
+            "<select id=\"furnishing-selector-$" + lineCounter + "\" class=\"form-control\" name=\"furnishing\" required=\"true\">" +
                 "<option value=\"1\">TV</option>" +
                 "<option value=\"2\">Stool</option>" +
                 "<option value=\"3\">Bed</option>" +
@@ -43,17 +50,17 @@ function addLine() {
 
         "<div class=\"col\">" +
             "<label id=\"quantity-label\" class=\"field-label\" for=\"item-price-readonly\">Quantity</label>" +
-            "<input id=\"quantity-input\" class=\"form-control\" type=\"text\" name=\"quantity\" required=\"true\">" +
+            "<input id=\"quantity-input-" + lineCounter + "\" class=\"form-control\" type=\"text\" name=\"quantity\" required=\"true\">" +
         "</div>" +
         
         "<div class=\"col\">" +
             "<label id=\"size-readonly-label\" class=\"field-label\" for=\"size-readonly\">Size</label>" +
-            "<p id=\"size-readonly\" class=\"form-control-static\" name=\"size\">25m2</p>" +
+            "<p id=\"size-readonly-" + lineCounter + "\" class=\"form-control-static\" name=\"size\">" + getFurnishingSize() + "</p>" +
         "</div>" +
         
         "<div class=\"col\">" +
             "<label id=\"item-price-readonly-label\" class=\"field-label\" for=\"item-price-readonly\">Line Price</label>" +
-            "<p id=\"item-price-readonly\" class=\"form-control-static\" name=\"price\">£13.50</p>" +
+            "<p id=\"item-price-readonly-" + lineCounter + "\" class=\"form-control-static\" name=\"price\">" + calculateLinePrice() + "</p>" +
         "</div>" +
 
         "<div class=\"col\">" +
@@ -65,4 +72,5 @@ function addLine() {
     "</div>";
 
     $('#data-entry').append(applicationLineHtml);
+    lineCounter++;
 }

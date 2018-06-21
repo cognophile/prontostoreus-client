@@ -5,6 +5,7 @@ const customerEndpoint = 'customer/';
 const applicationEndpoint = 'apply/';
 const confirmationEndpoint = 'confirm/';
 const invoiceEndpoint = 'invoice/';
+var globalCounter = 1;
 
 /**
  * Render a notification window to the UI
@@ -41,7 +42,7 @@ function notifyAndLoadPage(title, message, nextUrl, fallbackUrl) {
             }
         },
         callback: function (result) { 
-            // ! Result:boolean - Ok (true), Cancel (false) 
+            // * Result:boolean - Ok (true), Cancel (false) 
             (result) ? window.location.href = nextUrl : fallbackUrl;
         }
     });
