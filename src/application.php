@@ -62,12 +62,10 @@
                         <input id="end-date-input" class="form-control" type="text" name="endDate" required="true">
                     </div>
                 </div>
-
-                <br><br>
             </div>
         </section>
         
-        <br><br><br>
+        <br><br>
         <section>
             <div id="meta-bottom-navbar" class="row justify-content-center">
                 <div id="bottom-btn-navbar" class="row">
