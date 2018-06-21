@@ -5,6 +5,10 @@ $(document).ready(function () {
     addLine();
 });
 
+function mockComplete() {
+    loadPage('confirmation.php?application=' + 2);
+}
+
 function showAddButton() {
 
 }
