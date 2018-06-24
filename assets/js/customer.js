@@ -51,22 +51,6 @@ function validateCustomerForm() {
 }
 
 /**
- * Binding to check each element of the given array 
- *  against the isNotNullOrEmpty method
- * @param {*} fields 
- */
-function doValidate(fields) {
-    return fields.every(isNotNullOrEmpty);
-}
-
-/**
- * Render a notification to user that the present form is incomplete
- */
-function invalidFormNotification() {
-    notify('You missed a bit!', 'You need to fill out all fields before moving to the next stage.');
-}
-
-/**
  * Return a string representation of a JSON representation.
  * @param {object} error 
  */
