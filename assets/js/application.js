@@ -5,6 +5,7 @@ $(document).ready(function () {
     $("#end-date-input").datepicker();
 
     // ! post to create empty application, then get the ID back to fulfil it with put
+    // ! pass this to addLineToApplicationData()
     addLine();
 });
 
@@ -23,8 +24,8 @@ function postApplication(data) {
 
 function bindApplicationData(metaData) {
     var postApplication = {
-        'customer_id': getUrlParameter(),
-        'company_id': getUrlParameter(),
+        'customer_id': getUrlParameter('customer'),
+        'company_id': getUrlParameter('company'),
         'delivery': metaData[0],
         'start_date': metaData[1],
         'end_date': metaData[2],
@@ -33,6 +34,25 @@ function bindApplicationData(metaData) {
     };
 
     return postApplication;
+}
+
+function calculateTotal(applicationData) {
+    applicationData.application_lines.forEach(function(element) {
+        applicationData.total_cost += element.line_cost;
+    });
+
+    return applicationData;
+}
+
+function addLineToApplicationData(applicationId, lineData) {
+    var line = {
+        'application_id': applicationId,
+        'furnishing_id': lineData[0],
+        'quantity': lineData[1],
+        'line_cost': lineData[2]
+    }
+    
+    postApplication.application_lines += line;
 }
 
 function validateApplicationForm() {
@@ -53,20 +73,8 @@ function validateApplicationForm() {
         (isValid) ? addLineToApplicationData(lineData) : invalidFormNotification();
     } 
 
-    // ! Foreach application line, add the line cost to the total here
-    applicationData.total_cost = 
+    applicationData = calculateTotal(applicationData);
     postApplication(applicationData);
-}
-
-function addLineToApplicationData(applicationId, lineData) {
-    var line = {
-        'application_id': applicationId,
-        'furnishing_id': lineData[0],
-        'quantity': lineData[1],
-        'line_cost': lineData[2]
-    }
-    
-    postApplication.application_lines += line;
 }
 
 function getFurnishingSize() {
