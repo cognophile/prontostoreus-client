@@ -1,39 +1,96 @@
+var globalLineCounter = 1;
+
 $(document).ready(function () {
     $("#start-date-input").datepicker();
     $("#end-date-input").datepicker();
 
+    // ! post to create empty application, then get the ID back to fulfil it with put
     addLine();
 });
 
-function mockComplete() {
-    loadPage('confirmation.php?application=' + 2);
+function postApplication(data) {
+    $.post(baseApi + applicationEndpoint, data)
+    .done(function(response) {
+        var title = (response.success) ? 'Got it!' : '';
+        notifyAndLoadPage(title, response.message, 
+            'confirmation.php?application=' + response.data.application_id);
+    })
+    .fail(function(error) {
+        var title = (!error.responseJSON.success) ? 'Oops!' : '';
+        notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+    });
 }
 
-function showAddButton() {
+function bindApplicationData(metaData) {
+    var postApplication = {
+        'customer_id': getUrlParameter(),
+        'company_id': getUrlParameter(),
+        'delivery': metaData[0],
+        'start_date': metaData[1],
+        'end_date': metaData[2],
+        'total_cost': metaData[3],
+        'application_lines': []
+    };
 
+    return postApplication;
 }
 
-function hideAddButton() {
+function validateApplicationForm() {
+    var collection = $('#collection-checkbox').val();
+    var startDate = $('#start-date-input').val();
+    var endDate = $('#end-date-input').val();
+    var metaData = [collection, startDate, endDate];
+    var applicationData = bindApplicationData(metaData);
 
+    for (i = 0; i < globalLineCounter; i++) {
+        var furnishingId = $('#furnishing-selector-' + i).val();
+        var quantity = $('#quantity-input-' + i).text();
+        var linePrice = $('#line-price-readonly-' + i).text();
+     
+        var lineData = [furnishingId, quantity, linePrice];
+        var isValid = doValidate(lineData);
+
+        (isValid) ? addLineToApplicationData(lineData) : invalidFormNotification();
+    } 
+
+    // ! Foreach application line, add the line cost to the total here
+    applicationData.total_cost = 
+    postApplication(applicationData);
 }
 
-function getFurnishingSize()
-{
+function addLineToApplicationData(applicationId, lineData) {
+    var line = {
+        'application_id': applicationId,
+        'furnishing_id': lineData[0],
+        'quantity': lineData[1],
+        'line_cost': lineData[2]
+    }
+    
+    postApplication.application_lines += line;
+}
+
+function getFurnishingSize() {
     var size = "25", majorUnit = "m", minorUnit = "2";
     return size + majorUnit + minorUnit.sup(); 
 }
 
-function calculateLinePrice() {
-    var currency = "£", price = "13.50";
-    return currency + price; 
+function getItemPrice() {
+    return 15.99;
+}
+
+function calculateLinePrice(elementId) {
+    var lastDelimiter = elementId.lastIndexOf('-');
+    var lineNumber = elementId.substring(lastDelimiter + 1); 
+    var quantity = $("#quantity-input-" + lineNumber).val(); 
+    var lineCost = quantity * getItemPrice();
+    $('#line-price-readonly-' + lineNumber).html('£' + lineCost);
 }
 
 function addLine() {
-    var lineCounter = globalCounter;
     var applicationLineHtml = "<br><div class=\"row\">" + 
         "<div class=\"col\">" +
-            "<label id=\"room-selector-label\" class=\"field-label\" for=\"room-selector\">Room</label>" +
-            "<select id=\"room-selector-" + lineCounter + "\" class=\"form-control\" name=\"room\" required=\"true\">" +
+            "<label id=\"room-selector-label\" class=\"field-label\">Room</label>" +
+            "<select id=\"room-selector-" + globalLineCounter + "\" class=\"form-control\" name=\"room\" required=\"true\">" +
                 "<option value=\"1\">Living room</option>" +
                 "<option value=\"2\">Kitchen</option>" +
                 "<option value=\"3\">Bedroom</option>" +
@@ -42,8 +99,8 @@ function addLine() {
             "</select>" +
         "</div>" +
         "<div class=\"col\">" +
-            "<label id=\"furnishing-selector-label\" class=\"field-label\" for=\"furnishing-selector\">Furnishing</label>" +
-            "<select id=\"furnishing-selector-$" + lineCounter + "\" class=\"form-control\" name=\"furnishing\" required=\"true\">" +
+            "<label id=\"furnishing-selector-label\" class=\"field-label\">Furnishing</label>" +
+            "<select id=\"furnishing-selector-" + globalLineCounter + "\" class=\"form-control\" name=\"furnishing\" required=\"true\">" +
                 "<option value=\"1\">TV</option>" +
                 "<option value=\"2\">Stool</option>" +
                 "<option value=\"3\">Bed</option>" +
@@ -53,18 +110,23 @@ function addLine() {
         "</div>" +
 
         "<div class=\"col\">" +
-            "<label id=\"quantity-label\" class=\"field-label\" for=\"item-price-readonly\">Quantity</label>" +
-            "<input id=\"quantity-input-" + lineCounter + "\" class=\"form-control\" type=\"text\" name=\"quantity\" required=\"true\">" +
+            "<label id=\"quantity-label\" class=\"field-label\">Quantity</label>" +
+            "<input id=\"quantity-input-" + globalLineCounter + "\" class=\"form-control\" type=\"text\" name=\"quantity\" value=\"1\" onchange=\"calculateLinePrice(this.id)\" required=\"true\">" +
         "</div>" +
         
         "<div class=\"col\">" +
-            "<label id=\"size-readonly-label\" class=\"field-label\" for=\"size-readonly\">Size</label>" +
-            "<p id=\"size-readonly-" + lineCounter + "\" class=\"form-control-static\" name=\"size\">" + getFurnishingSize() + "</p>" +
+            "<label id=\"size-readonly-label\" class=\"field-label\" >Size</label>" +
+            "<p id=\"size-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"size\">" + getFurnishingSize() + "</p>" +
+        "</div>" +
+
+        "<div class=\"col\">" +
+            "<label id=\"item-price-readonly-label\" class=\"field-label\">Item Price</label>" +
+            "<p id=\"item-price-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"itemPrice\">£" + getItemPrice() + "</p>" +
         "</div>" +
         
         "<div class=\"col\">" +
-            "<label id=\"item-price-readonly-label\" class=\"field-label\" for=\"item-price-readonly\">Line Price</label>" +
-            "<p id=\"item-price-readonly-" + lineCounter + "\" class=\"form-control-static\" name=\"price\">" + calculateLinePrice() + "</p>" +
+            "<label id=\"lineprice-readonly-label\" class=\"field-label\">Line Price</label>" +
+            "<p id=\"line-cost-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"lineCost\">" + "</p>" +
         "</div>" +
 
         "<div class=\"col\">" +
@@ -76,5 +138,6 @@ function addLine() {
     "</div>";
 
     $('#data-entry').append(applicationLineHtml);
-    lineCounter++;
+    calculateLinePrice($('#quantity-input-' + globalLineCounter).attr('id'));
+    globalLineCounter++;
 }
