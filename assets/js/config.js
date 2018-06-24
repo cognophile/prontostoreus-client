@@ -5,7 +5,6 @@ const customerEndpoint = 'customer/';
 const applicationEndpoint = 'apply/';
 const confirmationEndpoint = 'confirm/';
 const invoiceEndpoint = 'invoice/';
-var globalCounter = 1;
 
 /**
  * Render a notification window to the UI
@@ -77,6 +76,22 @@ function renderPopover(elementId, title, content) {
  */
 function isNotNullOrEmpty(field) {
     return (field !== null && field !== "");
+}
+
+/**
+ * Binding to check each element of the given array 
+ *  against the isNotNullOrEmpty method
+ * @param {*} fields 
+ */
+function doValidate(fields) {
+    return fields.every(isNotNullOrEmpty);
+}
+
+/**
+ * Render a notification to user that the present form is incomplete
+ */
+function invalidFormNotification() {
+    notify('You missed a bit!', 'You need to fill out all fields before moving to the next stage.');
 }
 
 /**
