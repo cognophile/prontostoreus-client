@@ -6,9 +6,10 @@ $(document).ready(function () {
 
     // ! post to create empty application, then get the ID back to fulfil it with put
     // ! pass this to addLineToApplicationData()
-    addLine();
+    addInitialLine(globalLineCounter);
 });
 
+// Parent Application Functions
 function postApplication(data) {
     $.post(baseApi + applicationEndpoint, data)
     .done(function(response) {
@@ -77,9 +78,70 @@ function validateApplicationForm() {
     postApplication(applicationData);
 }
 
-function getFurnishingSize() {
-    var size = "25", majorUnit = "m", minorUnit = "2";
-    return size + majorUnit + minorUnit.sup(); 
+// Application Lines Functions
+function renderRoomsDropdown(data) {
+    data.forEach(function(index) {
+        $('#room-selector-' + globalLineCounter).append('<option value=\'' + index.id + '\'>' + index.description + '</option>');
+    });
+}
+
+function renderFurnishingsDropdown(data) {
+    $('#furnishing-selector-' + globalLineCounter).find('option').not(':first').remove();
+
+    data.forEach(function(index, object) {
+        $('#furnishing-selector-' + globalLineCounter).append('<option value=\'' + index.id + '\'>' + index.description + '</option>');
+    });
+}
+
+function getRooms() {
+    $.get(baseApi + applicationEndpoint + "room/")
+        .done(function(response) {
+            return renderRoomsDropdown(response.data);
+        })
+        .fail(function(error) {
+            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+            return false;
+        });
+}
+
+function getFurnishings(roomId) {
+    $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/")
+        .done(function(response) {
+            return renderFurnishingsDropdown(response.data);
+        })
+        .fail(function(error) {
+            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+            return false;
+        });
+}
+
+function updateFurnishingList(lineNumber) {
+    var roomId = $('#room-selector-' + lineNumber).val();
+    getFurnishings(roomId);
+}
+
+function getFurnishing() {
+    var roomId = $('#room-selector-' + globalLineCounter).val();;
+    var furnishingId = $('#furnishing-selector-' + globalLineCounter).val();
+
+    $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/" + furnishingId)
+        .done(function(response) {
+            return setFurnishingSize(response.data);
+        })
+        .fail(function(error) {
+            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+            return false;
+        });
+}
+
+function setFurnishingSize(data) {
+    var majorUnit = "m", minorUnit = "2";
+    $('#size-readonly-' + globalLineCounter).html(data.size + majorUnit + minorUnit.sup() + "/" + data.weight + "kg");
+}
+
+function populateFields(lineNumber) {
+    getRooms();
+    updateFurnishingList(lineNumber);
 }
 
 function getItemPrice(itemId) {
@@ -96,58 +158,60 @@ function calculateLinePrice(elementId) {
     $('#line-cost-readonly-' + lineNumber).html('£' + lineCost);
 }
 
-function addLine() {
-    var applicationLineHtml = "<br><div class=\"row\">" + 
+// Application Line Creation
+function addInitialLine(lineNumber) {
+    doAddLine(lineNumber);
+}
+
+function addNewLine() {
+    globalLineCounter++;
+    doAddLine(globalLineCounter);
+}
+
+function doAddLine(lineNumber) {
+    var lineHtml = "<br><div class=\"row\">" + 
         "<div class=\"col\">" +
             "<label id=\"room-selector-label\" class=\"field-label\">Room</label>" +
-            "<select id=\"room-selector-" + globalLineCounter + "\" class=\"form-control\" name=\"room\" required=\"true\">" +
-                "<option value=\"1\">Living room</option>" +
-                "<option value=\"2\">Kitchen</option>" +
-                "<option value=\"3\">Bedroom</option>" +
-                "<option value=\"4\">Bathroom</option>" +
-                "<option value=\"5\">Garage</option>" +
+            "<select id=\"room-selector-" + lineNumber + "\" class=\"form-control\" name=\"room\" onchange=\"updateFurnishingList(" + lineNumber + ")\" required=\"true\">" + 
+                "<option value=0> -- Select a room -- </option>" +
             "</select>" +
         "</div>" +
         "<div class=\"col\">" +
             "<label id=\"furnishing-selector-label\" class=\"field-label\">Furnishing</label>" +
-            "<select id=\"furnishing-selector-" + globalLineCounter + "\" class=\"form-control\" name=\"furnishing\" required=\"true\">" +
-                "<option value=\"1\">TV</option>" +
-                "<option value=\"2\">Stool</option>" +
-                "<option value=\"3\">Bed</option>" +
-                "<option value=\"4\">Sofa</option>" +
-                "<option value=\"5\">Spade</option>" +
+            "<select id=\"furnishing-selector-" + lineNumber + "\" class=\"form-control\" name=\"furnishing\" onchange=\"getFurnishing()\" required=\"true\">" +
+                "<option value=0> -- Select a furnishing -- </option>" +
             "</select>" +
         "</div>" +
 
         "<div class=\"col\">" +
             "<label id=\"quantity-label\" class=\"field-label\">Quantity</label>" +
-            "<input id=\"quantity-input-" + globalLineCounter + "\" class=\"form-control\" type=\"text\" name=\"quantity\" value=\"1\" onchange=\"calculateLinePrice(this.id)\" required=\"true\">" +
+            "<input id=\"quantity-input-" + lineNumber + "\" class=\"form-control\" type=\"text\" name=\"quantity\" value=\"1\" onchange=\"calculateLinePrice(this.id)\" required=\"true\">" +
         "</div>" +
         
         "<div class=\"col\">" +
-            "<label id=\"size-readonly-label\" class=\"field-label\" >Size</label>" +
-            "<p id=\"size-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"size\">" + getFurnishingSize() + "</p>" +
+            "<label id=\"size-readonly-label\" class=\"field-label\" >Required Size/Weight</label>" +
+            "<p id=\"size-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"size\">0m<sup>2</sup>/0kg</p>" +
         "</div>" +
 
         "<div class=\"col\">" +
             "<label id=\"item-price-readonly-label\" class=\"field-label\">Item Price</label>" +
-            "<p id=\"item-price-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"itemPrice\">£" + getItemPrice(30.00) + "</p>" +
+            "<p id=\"item-price-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"itemPrice\">£" + getItemPrice(30.00) + "</p>" +
         "</div>" +
         
         "<div class=\"col\">" +
             "<label id=\"line-cost-readonly-label\" class=\"field-label\">Line Cost</label>" +
-            "<p id=\"line-cost-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"lineCost\">" + "</p>" +
+            "<p id=\"line-cost-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"lineCost\">" + "</p>" +
         "</div>" +
 
         "<div class=\"col\">" +
             "<br>" +
             "<span class=\"input-group-btn\">" +
-                "<a id=\"add-app-line-btn\" class=\"browse btn btn-primary\" onclick=\"addLine()\">+</a>" +
+                "<a id=\"add-app-line-btn\" class=\"browse btn btn-primary\" onclick=\"addNewLine()\">+</a>" +
             "</span>" +
         "</div>" +
     "</div>";
 
-    $('#data-entry').append(applicationLineHtml);
-    calculateLinePrice($('#quantity-input-' + globalLineCounter).attr('id'));
-    globalLineCounter++;
+    $('#data-entry').append(lineHtml);
+    calculateLinePrice($('#quantity-input-' + lineNumber).attr('id'));
+    populateFields(lineNumber);
 }
