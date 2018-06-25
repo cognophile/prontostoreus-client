@@ -65,7 +65,7 @@ function validateApplicationForm() {
     for (i = 0; i < globalLineCounter; i++) {
         var furnishingId = $('#furnishing-selector-' + i).val();
         var quantity = $('#quantity-input-' + i).text();
-        var linePrice = $('#line-price-readonly-' + i).text();
+        var linePrice = $('#line-cost-readonly-' + i).text();
      
         var lineData = [furnishingId, quantity, linePrice];
         var isValid = doValidate(lineData);
@@ -82,16 +82,18 @@ function getFurnishingSize() {
     return size + majorUnit + minorUnit.sup(); 
 }
 
-function getItemPrice() {
-    return 15.99;
+function getItemPrice(itemId) {
+    return itemId;
 }
 
 function calculateLinePrice(elementId) {
+    // ! Get furnishing Id from dropdown
     var lastDelimiter = elementId.lastIndexOf('-');
     var lineNumber = elementId.substring(lastDelimiter + 1); 
     var quantity = $("#quantity-input-" + lineNumber).val(); 
-    var lineCost = quantity * getItemPrice();
-    $('#line-price-readonly-' + lineNumber).html('£' + lineCost);
+    var lineCost = quantity * getItemPrice(30.00);
+
+    $('#line-cost-readonly-' + lineNumber).html('£' + lineCost);
 }
 
 function addLine() {
@@ -129,11 +131,11 @@ function addLine() {
 
         "<div class=\"col\">" +
             "<label id=\"item-price-readonly-label\" class=\"field-label\">Item Price</label>" +
-            "<p id=\"item-price-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"itemPrice\">£" + getItemPrice() + "</p>" +
+            "<p id=\"item-price-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"itemPrice\">£" + getItemPrice(30.00) + "</p>" +
         "</div>" +
         
         "<div class=\"col\">" +
-            "<label id=\"lineprice-readonly-label\" class=\"field-label\">Line Price</label>" +
+            "<label id=\"line-cost-readonly-label\" class=\"field-label\">Line Cost</label>" +
             "<p id=\"line-cost-readonly-" + globalLineCounter + "\" class=\"form-control-static\" name=\"lineCost\">" + "</p>" +
         "</div>" +
 
