@@ -50,7 +50,7 @@ function getLocations(userPostcode) {
             addListItem(response);
         })
         .fail(function(error) {
-            notify('Server error!', 'Unable to communicate with the server: ' + error);
+            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
             return false;
     });
 }
