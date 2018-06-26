@@ -69,7 +69,7 @@ function postCustomer(data) {
         .done(function(response) {
             var title = (response.success) ? 'Got it!' : '';
             notifyAndLoadPage(title, response.message, 
-                'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data.addresses.customer_id);
+                'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data.id);
         })
         .fail(function(error) {
             var title = (!error.responseJSON.success) ? 'Oops!' : '';
