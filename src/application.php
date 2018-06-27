@@ -47,8 +47,8 @@
             <div id="data-entry" class="container-fluid form-group">
                 <div class="row">
                     <div class="col">
-                        <label id="size-readonly-label" class="field-label vertical-center">Total</label>
-                        <p id="total-cost-readonly" class="form-control-static" name="totalCots">£0</p>
+                        <label id="total-cost-readonly-label" class="field-label vertical-center">Total</label>
+                        <p id="total-cost-readonly" class="form-control-static" name="totalCost">£0.00</p>
                     </div>
                     <div class="col">
                         <label id="collection-label" class="field-label vertical-center" for="collection-checkbox">Require collection</label>                       

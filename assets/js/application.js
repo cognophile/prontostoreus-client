@@ -12,15 +12,15 @@ $(document).ready(function () {
 // Parent Application Functions
 function postApplication(data) {
     $.post(baseApi + applicationEndpoint, data)
-    .done(function(response) {
-        var title = (response.success) ? 'Got it!' : '';
-        notifyAndLoadPage(title, response.message, 
-            'confirmation.php?application=' + response.data.application_id);
-    })
-    .fail(function(error) {
-        var title = (!error.responseJSON.success) ? 'Oops!' : '';
-        notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
-    });
+        .done(function(response) {
+            var title = (response.success) ? 'Got it!' : '';
+            notifyAndLoadPage(title, response.message, 
+                'confirmation.php?application=' + response.data.application_id);
+        })
+        .fail(function(error) {
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+        });
 }
 
 function bindApplicationData(metaData) {
@@ -63,7 +63,7 @@ function validateApplicationForm() {
     var metaData = [collection, startDate, endDate];
     var applicationData = bindApplicationData(metaData);
 
-    for (i = 0; i < globalLineCounter; i++) {
+    for (var i = 0; i < globalLineCounter; i++) {
         var furnishingId = $('#furnishing-selector-' + i).val();
         var quantity = $('#quantity-input-' + i).text();
         var linePrice = $('#line-cost-readonly-' + i).text();
@@ -71,7 +71,8 @@ function validateApplicationForm() {
         var lineData = [furnishingId, quantity, linePrice];
         var isValid = doValidate(lineData);
 
-        (isValid) ? addLineToApplicationData(lineData) : invalidFormNotification();
+        // ! Get application Id - Create then update app details, and post lines seperately? 
+        (isValid) ? addLineToApplicationData(applicationId, lineData) : invalidFormNotification();
     } 
 
     applicationData = calculateTotal(applicationData);
@@ -79,6 +80,17 @@ function validateApplicationForm() {
 }
 
 // Application Lines Functions
+function setApplicationTotal(lineNumber) {
+    var totalCost = 0.00;
+
+    for (var i = 1; i <= lineNumber; i++) {
+        var currentLineCost = $('#line-cost-readonly-' + i).html().substring(1);
+        totalCost += parseFloat(currentLineCost);
+    }
+
+    $('#total-cost-readonly').html('£' + parseFloat(totalCost).toFixed(2));
+}
+
 function renderRoomsDropdown(data) {
     data.forEach(function(index) {
         $('#room-selector-' + globalLineCounter).append('<option value=\'' + index.id + '\'>' + index.description + '</option>');
@@ -115,13 +127,13 @@ function getFurnishings(roomId) {
         });
 }
 
-function updateFurnishingList(lineNumber) {
+function setFurnishingList(lineNumber) {
     var roomId = $('#room-selector-' + lineNumber).val();
     getFurnishings(roomId);
 }
 
 function getFurnishing() {
-    var roomId = $('#room-selector-' + globalLineCounter).val();;
+    var roomId = $('#room-selector-' + globalLineCounter).val();
     var furnishingId = $('#furnishing-selector-' + globalLineCounter).val();
 
     $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/" + furnishingId)
@@ -132,6 +144,8 @@ function getFurnishing() {
             notify('Server error!', 'Unable to communicate with the server: ' + error.message);
             return false;
         });
+
+    getItemPrice();
 }
 
 function setFurnishingSize(data) {
@@ -139,23 +153,40 @@ function setFurnishingSize(data) {
     $('#size-readonly-' + globalLineCounter).html(data.size + majorUnit + minorUnit.sup() + "/" + data.weight + "kg");
 }
 
-function populateFields(lineNumber) {
-    getRooms();
-    updateFurnishingList(lineNumber);
+function getItemPrice() {
+    var companyId = getUrlParameter('company');
+    var furnishingId = $('#furnishing-selector-' + globalLineCounter).val();
+    
+    $.get(baseApi + applicationEndpoint + "company/" + companyId + "/furnishing/" + furnishingId)
+    .done(function(response) {
+        return setFurnishingPrice(response.data);
+    })
+    .fail(function(error) {
+        notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+        return false;
+    });
 }
 
-function getItemPrice(itemId) {
-    return itemId;
+function setFurnishingPrice(data) {
+    $('#item-price-readonly-' + globalLineCounter).html("£" + data.cost);
+    setLinePrice('#item-price-readonly-' + globalLineCounter);
 }
 
-function calculateLinePrice(elementId) {
-    // ! Get furnishing Id from dropdown
+function setLinePrice(elementId) {    
     var lastDelimiter = elementId.lastIndexOf('-');
     var lineNumber = elementId.substring(lastDelimiter + 1); 
-    var quantity = $("#quantity-input-" + lineNumber).val(); 
-    var lineCost = quantity * getItemPrice(30.00);
+    
+    var quantity = $('#quantity-input-' + lineNumber).val(); 
+    var itemPrice = $('#item-price-readonly-' + lineNumber).html().substring(1);
+    var lineCost = quantity * itemPrice;
 
-    $('#line-cost-readonly-' + lineNumber).html('£' + lineCost);
+    $('#line-cost-readonly-' + lineNumber).html('£' + lineCost.toFixed(2));
+    setApplicationTotal(globalLineCounter);
+}
+
+function populateFields(lineNumber) {
+    getRooms();
+    setFurnishingList(lineNumber);
 }
 
 // Application Line Creation
@@ -172,7 +203,7 @@ function doAddLine(lineNumber) {
     var lineHtml = "<br><div class=\"row\">" + 
         "<div class=\"col\">" +
             "<label id=\"room-selector-label\" class=\"field-label\">Room</label>" +
-            "<select id=\"room-selector-" + lineNumber + "\" class=\"form-control\" name=\"room\" onchange=\"updateFurnishingList(" + lineNumber + ")\" required=\"true\">" + 
+            "<select id=\"room-selector-" + lineNumber + "\" class=\"form-control\" name=\"room\" onchange=\"setFurnishingList(" + lineNumber + ")\" required=\"true\">" + 
                 "<option value=0> -- Select a room -- </option>" +
             "</select>" +
         "</div>" +
@@ -185,7 +216,7 @@ function doAddLine(lineNumber) {
 
         "<div class=\"col\">" +
             "<label id=\"quantity-label\" class=\"field-label\">Quantity</label>" +
-            "<input id=\"quantity-input-" + lineNumber + "\" class=\"form-control\" type=\"text\" name=\"quantity\" value=\"1\" onchange=\"calculateLinePrice(this.id)\" required=\"true\">" +
+            "<input id=\"quantity-input-" + lineNumber + "\" class=\"form-control\" type=\"text\" name=\"quantity\" value=\"1\" onchange=\"setLinePrice(this.id)\" required=\"true\">" +
         "</div>" +
         
         "<div class=\"col\">" +
@@ -195,12 +226,12 @@ function doAddLine(lineNumber) {
 
         "<div class=\"col\">" +
             "<label id=\"item-price-readonly-label\" class=\"field-label\">Item Price</label>" +
-            "<p id=\"item-price-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"itemPrice\">£" + getItemPrice(30.00) + "</p>" +
+            "<p id=\"item-price-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"itemPrice\">£0.00</p>" +
         "</div>" +
         
         "<div class=\"col\">" +
             "<label id=\"line-cost-readonly-label\" class=\"field-label\">Line Cost</label>" +
-            "<p id=\"line-cost-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"lineCost\">" + "</p>" +
+            "<p id=\"line-cost-readonly-" + lineNumber + "\" class=\"form-control-static\" name=\"lineCost\">£0.00</p>" +
         "</div>" +
 
         "<div class=\"col\">" +
@@ -212,6 +243,5 @@ function doAddLine(lineNumber) {
     "</div>";
 
     $('#data-entry').append(lineHtml);
-    calculateLinePrice($('#quantity-input-' + lineNumber).attr('id'));
     populateFields(lineNumber);
 }
