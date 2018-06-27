@@ -60,19 +60,26 @@ function validateApplicationForm() {
     var collection = $('#collection-checkbox').val();
     var startDate = $('#start-date-input').val();
     var endDate = $('#end-date-input').val();
-    var metaData = [collection, startDate, endDate];
+    var totalCost = $('#total-cost-readonly').html().substring(1);
+    var metaData = [collection, startDate, endDate, totalCost];
     var applicationData = bindApplicationData(metaData);
 
     for (var i = 0; i < globalLineCounter; i++) {
         var furnishingId = $('#furnishing-selector-' + i).val();
         var quantity = $('#quantity-input-' + i).text();
-        var linePrice = $('#line-cost-readonly-' + i).text();
+        var linePrice = $('#line-cost-readonly-' + i).html().substring(1);
      
         var lineData = [furnishingId, quantity, linePrice];
         var isValid = doValidate(lineData);
 
         // ! Get application Id - Create then update app details, and post lines seperately? 
-        (isValid) ? addLineToApplicationData(applicationId, lineData) : invalidFormNotification();
+        if (isValid) {
+            addLineToApplicationData(applicationId, lineData)
+        } 
+        else {
+            invalidFormNotification();
+            return false;
+        }
     } 
 
     applicationData = calculateTotal(applicationData);
