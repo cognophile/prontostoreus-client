@@ -1,8 +1,8 @@
 var globalLineCounter = 1;
 
 $(document).ready(function () {
-    $("#start-date-input").datepicker();
-    $("#end-date-input").datepicker();
+    $("#start-date-input").datepicker({dateFormat: "yy-mm-dd"});
+    $("#end-date-input").datepicker({dateFormat: "yy-mm-dd"});
 
     // ! post to create empty application, then get the ID back to fulfil it with put
     // ! pass this to addLineToApplicationData()
