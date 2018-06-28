@@ -9,7 +9,7 @@ $(document).ready(function () {
     addInitialLine(globalLineCounter);
 });
 
-// Parent Application Functions
+// Application POST-ing Functions
 function postApplication(data) {
     $.post(baseApi + applicationEndpoint, data)
         .done(function(response) {
@@ -23,7 +23,18 @@ function postApplication(data) {
         });
 }
 
-function bindApplicationData(metaData) {
+function postDefaultApplicationForId(data) {
+    $.post(baseApi + applicationEndpoint, data)
+        .done(function(response) {
+            return response.data;
+        })
+        .fail(function(error) {
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+        });
+}
+
+function mapApplicationMetaData(metaData) {
     var postApplication = {
         'customer_id': getUrlParameter('customer'),
         'company_id': getUrlParameter('company'),
@@ -45,7 +56,7 @@ function calculateTotal(applicationData) {
     return applicationData;
 }
 
-function addLineToApplicationData(applicationId, lineData) {
+function mapApplicationLineData(applicationId, lineData) {
     var line = {
         'application_id': applicationId,
         'furnishing_id': lineData[0],
@@ -53,16 +64,23 @@ function addLineToApplicationData(applicationId, lineData) {
         'line_cost': lineData[2]
     }
     
-    postApplication.application_lines += line;
+    return lineData;
 }
 
 function validateApplicationForm() {
+    var initialData = {
+        'customer_id': getUrlParameter('customer'),
+        'company_id': getUrlParameter('company')
+    };
+
+    var initialApplication = postDefaultApplicationForId(initialData);
+    
     var collection = $('#collection-checkbox').val();
     var startDate = $('#start-date-input').val();
     var endDate = $('#end-date-input').val();
     var totalCost = $('#total-cost-readonly').html().substring(1);
     var metaData = [collection, startDate, endDate, totalCost];
-    var applicationData = bindApplicationData(metaData);
+    var applicationData = mapApplicationMetaData(metaData);
 
     for (var i = 0; i < globalLineCounter; i++) {
         var furnishingId = $('#furnishing-selector-' + i).val();
@@ -74,7 +92,8 @@ function validateApplicationForm() {
 
         // ! Get application Id - Create then update app details, and post lines seperately? 
         if (isValid) {
-            addLineToApplicationData(applicationId, lineData)
+            var line = mapApplicationLineData(initialApplication.application_id, lineData);
+            postApplication.application_lines.push(line);
         } 
         else {
             invalidFormNotification();
@@ -82,7 +101,7 @@ function validateApplicationForm() {
         }
     } 
 
-    applicationData = calculateTotal(applicationData);
+    // applicationData = calculateTotal(applicationData);
     postApplication(applicationData);
 }
 
