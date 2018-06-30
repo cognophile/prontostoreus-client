@@ -1,10 +1,12 @@
 const baseApi = 'http://localhost:8765/';
 
-const locationEndpoint = 'locate/';
-const customerEndpoint = 'customer/';
-const applicationEndpoint = 'apply/';
-const confirmationEndpoint = 'confirm/';
-const invoiceEndpoint = 'invoice/';
+const locationEndpoint = 'locations/';
+const customerEndpoint = 'customers/';
+const applicationEndpoint = 'applications/';
+const confirmationEndpoint = 'confirmations/';
+const invoiceEndpoint = 'invoices/';
+
+// TODO: Fuller client function documentation and README config/run instructions
 
 /**
  * Render a notification window to the UI
@@ -135,7 +137,7 @@ function apiGet(endpoint, data = "") {
     // });
 }
 
-function apiPost(data) {
+function apiPost(endpoint, data) {
 
 }
 
