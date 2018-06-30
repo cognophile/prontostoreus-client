@@ -4,29 +4,29 @@ $(document).ready(function () {
     $("#start-date-input").datepicker({dateFormat: "yy-mm-dd"});
     $("#end-date-input").datepicker({dateFormat: "yy-mm-dd"});
 
-    // ! post to create empty application, then get the ID back to fulfil it with put
-    // ! pass this to addLineToApplicationData()
     addInitialLine(globalLineCounter);
 });
 
 // Application POST-ing Functions
-function postApplication(data) {
-    $.post(baseApi + applicationEndpoint, data)
+function postApplicationLines(data) {
+    var applicationUrl = baseApi + applicationEndpoint + data.id + "/edit/";
+    $.post(applicationUrl, data)
         .done(function(response) {
-            var title = (response.success) ? 'Got it!' : '';
-            notifyAndLoadPage(title, response.message, 
-                'confirmation.php?application=' + response.data.application_id);
-        })
-        .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            console.log(response);
+            // var title = (response.success) ? 'Got it!' : '';
+            // notifyAndLoadPage(title, response.message, 
+            //     'confirmation.php?application=' + response.data.id);
+        }).fail(function(error) {
+            console.log("ERROR: " + error);
+            // var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            // notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
         });
 }
 
-function postDefaultApplicationForId(data) {
-    $.post(baseApi + applicationEndpoint, data)
+function postCreateApplication(data) {
+    $.post(baseApi + applicationEndpoint + "add/", data)
         .done(function(response) {
-            return response.data;
+            updateApplicationWithLines(response);
         })
         .fail(function(error) {
             var title = (!error.responseJSON.success) ? 'Oops!' : '';
@@ -67,42 +67,62 @@ function mapApplicationLineData(applicationId, lineData) {
     return lineData;
 }
 
-function validateApplicationForm() {
-    var initialData = {
-        'customer_id': getUrlParameter('customer'),
-        'company_id': getUrlParameter('company')
-    };
+function sendApplication() {
+    createApplication();
+}
 
-    var initialApplication = postDefaultApplicationForId(initialData);
-    
-    var collection = $('#collection-checkbox').val();
+function createApplication() {
+    var delivery = ($('#delivery-checkbox').is(':checked')) ? 1 : 0;
     var startDate = $('#start-date-input').val();
     var endDate = $('#end-date-input').val();
     var totalCost = $('#total-cost-readonly').html().substring(1);
-    var metaData = [collection, startDate, endDate, totalCost];
-    var applicationData = mapApplicationMetaData(metaData);
 
-    for (var i = 0; i < globalLineCounter; i++) {
+    var metaData = [delivery, startDate, endDate, totalCost];
+    var applicationData = mapApplicationMetaData(metaData);
+    
+    postCreateApplication(applicationData);
+}
+
+function resetApplicaitonValues(application) {
+    var deliveryBool = application.delivery;
+    var cancelledBool = application.cancelled;
+    var startDate = application.start_date.substring(0, application.start_date.indexOf('T'));
+    var endDate = application.end_date.substring(0, application.end_date.indexOf('T'));
+
+    application.delivery = +deliveryBool;
+    application.cancelled = +cancelledBool;
+    application.start_date = startDate;
+    application.end_date = endDate;
+
+    application.application_lines = {};
+
+    return application;
+}
+
+function updateApplicationWithLines(applicationResponse) {
+    var applicationData = applicationResponse.data;
+    applicationData = resetApplicaitonValues(applicationData);
+
+    for (var i = 1; i <= globalLineCounter; i++) {
         var furnishingId = $('#furnishing-selector-' + i).val();
-        var quantity = $('#quantity-input-' + i).text();
-        var linePrice = $('#line-cost-readonly-' + i).html().substring(1);
+        var quantity = $('#quantity-input-' + i).val();
+        var lineCost = $('#line-cost-readonly-' + i).html().substring(1);
      
-        var lineData = [furnishingId, quantity, linePrice];
+        var lineData = [furnishingId, quantity, lineCost];
         var isValid = doValidate(lineData);
 
-        // ! Get application Id - Create then update app details, and post lines seperately? 
         if (isValid) {
-            var line = mapApplicationLineData(initialApplication.application_id, lineData);
-            postApplication.application_lines.push(line);
+            var line = mapApplicationLineData(applicationData.id, lineData);
+            // TODO: Remove client knowledge of fields
+            applicationData.application_lines['line_' + i] = line;
         } 
         else {
             invalidFormNotification();
             return false;
         }
     } 
-
-    // applicationData = calculateTotal(applicationData);
-    postApplication(applicationData);
+    
+    postApplicationLines(applicationData);
 }
 
 // Application Lines Functions
