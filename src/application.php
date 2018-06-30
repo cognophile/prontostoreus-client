@@ -51,8 +51,8 @@
                         <p id="total-cost-readonly" class="form-control-static" name="totalCost">£0.00</p>
                     </div>
                     <div class="col">
-                        <label id="collection-label" class="field-label vertical-center" for="collection-checkbox">Require collection</label>                       
-                        <input id="collection-checkbox" class="vertical-center" type="checkbox" name="collection" required="true">
+                        <label id="delivery-label" class="field-label vertical-center" for="delivery-checkbox">Will deliver to company</label>                       
+                        <input id="delivery-checkbox" class="vertical-center" type="checkbox" name="delivery" required="true">
                     </div>
                 </div>
                 <div class="row">
@@ -83,7 +83,7 @@
                     <div class="col-md-6">
                         <div class="col-md-12 justify-content-center d-flex">
                             <span class="input-group-btn">
-                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" onclick="validateApplicationForm()">Continue</a>
+                                <a id="next-page-btn-visible-wide" class="browse btn btn-primary" onclick="sendApplication()">Continue</a>
                             </span>
                         </div>
                     </div>
