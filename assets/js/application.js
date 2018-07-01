@@ -63,8 +63,8 @@ function mapApplicationLineData(applicationId, lineData) {
         'quantity': lineData[1],
         'line_cost': lineData[2]
     }
-    
-    return lineData;
+
+    return line;
 }
 
 function sendApplication() {
@@ -113,7 +113,7 @@ function updateApplicationWithLines(applicationResponse) {
 
         if (isValid) {
             var line = mapApplicationLineData(applicationData.id, lineData);
-            // TODO: Remove client knowledge of fields
+            // TODO: Remove client knowledge of field names
             applicationData.application_lines['line_' + i] = line;
         } 
         else {
