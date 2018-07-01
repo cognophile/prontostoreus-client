@@ -12,14 +12,12 @@ function postApplicationLines(data) {
     var applicationUrl = baseApi + applicationEndpoint + data.id + "/edit/";
     $.post(applicationUrl, data)
         .done(function(response) {
-            console.log(response);
-            // var title = (response.success) ? 'Got it!' : '';
-            // notifyAndLoadPage(title, response.message, 
-            //     'confirmation.php?application=' + response.data.id);
+            var title = (response.success) ? 'Got it!' : '';
+            notifyAndLoadPage(title, response.message, 
+                'confirmation.php?application=' + response.data.id);
         }).fail(function(error) {
-            console.log("ERROR: " + error);
-            // var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            // notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
         });
 }
 
@@ -143,11 +141,11 @@ function renderRoomsDropdown(data) {
     });
 }
 
-function renderFurnishingsDropdown(data) {
-    $('#furnishing-selector-' + globalLineCounter).find('option').not(':first').remove();
+function renderFurnishingsDropdown(data, lineNumber) {
+    $('#furnishing-selector-' + lineNumber).find('option').not(':first').remove();
 
     data.forEach(function(index, object) {
-        $('#furnishing-selector-' + globalLineCounter).append('<option value=\'' + index.id + '\'>' + index.description + '</option>');
+        $('#furnishing-selector-' + lineNumber).append('<option value=\'' + index.id + '\'>' + index.description + '</option>');
     });
 }
 
@@ -162,10 +160,10 @@ function getRooms() {
         });
 }
 
-function getFurnishings(roomId) {
+function getFurnishings(roomId, lineNumber) {
     $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/")
         .done(function(response) {
-            return renderFurnishingsDropdown(response.data);
+            return renderFurnishingsDropdown(response.data, lineNumber);
         })
         .fail(function(error) {
             notify('Server error!', 'Unable to communicate with the server: ' + error.message);
@@ -173,39 +171,41 @@ function getFurnishings(roomId) {
         });
 }
 
-function setFurnishingList(lineNumber) {
-    var roomId = $('#room-selector-' + lineNumber).val();
-    getFurnishings(roomId);
+function setFurnishingList(roomSelector) {
+    var lineId = getLineFromElementId(roomSelector);
+    var roomId = $('#' + roomSelector).val();
+    getFurnishings(roomId, lineId);
 }
 
-function getFurnishing() {
-    var roomId = $('#room-selector-' + globalLineCounter).val();
-    var furnishingId = $('#furnishing-selector-' + globalLineCounter).val();
+function getFurnishing(elementId) {
+    var lineId = getLineFromElementId(elementId);
+    var roomId = $('#room-selector-' + lineId).val();
+    var furnishingId = $('#furnishing-selector-' + lineId).val();
 
     $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/" + furnishingId)
         .done(function(response) {
-            return setFurnishingSize(response.data);
+            return setFurnishingSize(response.data, lineId);
         })
         .fail(function(error) {
             notify('Server error!', 'Unable to communicate with the server: ' + error.message);
             return false;
         });
 
-    getItemPrice();
+    getItemPrice(lineId);
 }
 
-function setFurnishingSize(data) {
+function setFurnishingSize(data, lineId) {
     var majorUnit = "m", minorUnit = "2";
-    $('#size-readonly-' + globalLineCounter).html(data.size + majorUnit + minorUnit.sup() + "/" + data.weight + "kg");
+    $('#size-readonly-' + lineId).html(data.size + majorUnit + minorUnit.sup() + "/" + data.weight + "kg");
 }
 
-function getItemPrice() {
+function getItemPrice(lineId) {
     var companyId = getUrlParameter('company');
-    var furnishingId = $('#furnishing-selector-' + globalLineCounter).val();
+    var furnishingId = $('#furnishing-selector-' + lineId).val();
     
     $.get(baseApi + applicationEndpoint + "company/" + companyId + "/furnishing/" + furnishingId)
     .done(function(response) {
-        return setFurnishingPrice(response.data);
+        return setFurnishingPrice(response.data, lineId);
     })
     .fail(function(error) {
         notify('Server error!', 'Unable to communicate with the server: ' + error.message);
@@ -213,26 +213,25 @@ function getItemPrice() {
     });
 }
 
-function setFurnishingPrice(data) {
-    $('#item-price-readonly-' + globalLineCounter).html("£" + data.cost);
-    setLinePrice('#item-price-readonly-' + globalLineCounter);
+function setFurnishingPrice(data, lineId) {
+    $('#item-price-readonly-' + lineId).html("£" + data.cost);
+    setLinePrice('#item-price-readonly-' + lineId);
 }
 
 function setLinePrice(elementId) {    
-    var lastDelimiter = elementId.lastIndexOf('-');
-    var lineNumber = elementId.substring(lastDelimiter + 1); 
+    var lineId = getLineFromElementId(elementId); 
     
-    var quantity = $('#quantity-input-' + lineNumber).val(); 
-    var itemPrice = $('#item-price-readonly-' + lineNumber).html().substring(1);
+    var quantity = $('#quantity-input-' + lineId).val(); 
+    var itemPrice = $('#item-price-readonly-' + lineId).html().substring(1);
     var lineCost = quantity * itemPrice;
 
-    $('#line-cost-readonly-' + lineNumber).html('£' + lineCost.toFixed(2));
+    $('#line-cost-readonly-' + lineId).html('£' + lineCost.toFixed(2));
     setApplicationTotal(globalLineCounter);
 }
 
 function populateFields(lineNumber) {
     getRooms();
-    setFurnishingList(lineNumber);
+    setFurnishingList('room-selector-' + lineNumber);
 }
 
 // Application Line Creation
@@ -249,13 +248,13 @@ function doAddLine(lineNumber) {
     var lineHtml = "<br><div class=\"row\">" + 
         "<div class=\"col\">" +
             "<label id=\"room-selector-label\" class=\"field-label\">Room</label>" +
-            "<select id=\"room-selector-" + lineNumber + "\" class=\"form-control\" name=\"room\" onchange=\"setFurnishingList(" + lineNumber + ")\" required=\"true\">" + 
+            "<select id=\"room-selector-" + lineNumber + "\" class=\"form-control\" name=\"room\" onchange=\"setFurnishingList(this.id)\" required=\"true\">" + 
                 "<option value=0> -- Select a room -- </option>" +
             "</select>" +
         "</div>" +
         "<div class=\"col\">" +
             "<label id=\"furnishing-selector-label\" class=\"field-label\">Furnishing</label>" +
-            "<select id=\"furnishing-selector-" + lineNumber + "\" class=\"form-control\" name=\"furnishing\" onchange=\"getFurnishing()\" required=\"true\">" +
+            "<select id=\"furnishing-selector-" + lineNumber + "\" class=\"form-control\" name=\"furnishing\" onchange=\"getFurnishing(this.id)\" required=\"true\">" +
                 "<option value=0> -- Select a furnishing -- </option>" +
             "</select>" +
         "</div>" +

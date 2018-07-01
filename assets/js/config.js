@@ -119,6 +119,12 @@ function dateFormat(date, format) {
     }
 }
 
+function getLineFromElementId(elementId) {
+    var lastDelimiter = elementId.lastIndexOf('-');
+    var lineNumber = elementId.substring(lastDelimiter + 1);
+    return lineNumber; 
+}
+
 function identifyHyperlink(currentPage) {
 
 }
