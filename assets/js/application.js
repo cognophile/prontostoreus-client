@@ -155,7 +155,8 @@ function getRooms() {
             return renderRoomsDropdown(response.data);
         })
         .fail(function(error) {
-            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
             return false;
         });
 }
@@ -166,7 +167,8 @@ function getFurnishings(roomId, lineNumber) {
             return renderFurnishingsDropdown(response.data, lineNumber);
         })
         .fail(function(error) {
-            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
             return false;
         });
 }
@@ -187,7 +189,8 @@ function getFurnishing(elementId) {
             return setFurnishingSize(response.data, lineId);
         })
         .fail(function(error) {
-            notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
             return false;
         });
 
@@ -208,7 +211,8 @@ function getItemPrice(lineId) {
         return setFurnishingPrice(response.data, lineId);
     })
     .fail(function(error) {
-        notify('Server error!', 'Unable to communicate with the server: ' + error.message);
+        var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
         return false;
     });
 }
