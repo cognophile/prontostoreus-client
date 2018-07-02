@@ -15,7 +15,8 @@ function postConfirmation(data) {
             loadPage('invoice.php?application=' + getUrlParameter('application'));
         })
         .fail(function(error) {
-            notify('Oops!', 'We couldn\'t communicate with the server to complete your request!');
+            var title = (!error.responseJSON.success) ? 'Oops!' : '';
+            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
     });
 }
 
