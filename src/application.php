@@ -45,6 +45,7 @@
 
         <section>
             <div id="data-entry" class="container-fluid form-group">
+                <label class="field-label-large-nopad d-flex justify-content-center" for="input-location">What would you like to store?</label>
                 <div class="row">
                     <div class="col">
                         <label id="total-cost-readonly-label" class="field-label vertical-center">Total</label>
