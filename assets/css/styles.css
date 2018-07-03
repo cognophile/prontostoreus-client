@@ -22,13 +22,27 @@ input {
     color: white !important;
 }
 
-.field-label{
+.field-label {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1em;
+    padding-top: 10px;
+}
+
+.field-label-center {
+    text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1em;
     padding-top: 10px;
 }
 
 .field-label-large {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5em;
+    padding-top: 25px;
+}
+
+.field-label-large-center {
+    text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 1.5em;
     padding-top: 25px;
@@ -143,6 +157,10 @@ input {
 
 #bottom-btn-navbar {
     width: 86.5%;
+}
+
+#inline-sections {
+    width: 75%;
 }
 
 /* ALERTS */
