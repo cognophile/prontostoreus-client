@@ -59,12 +59,12 @@
                         <div class="col-md-6">
                             <div class="col-md-12 justify-content-center d-flex">
                                 <div id="customer-details">
-                                    <p id="customer-name">Mr. John Smith</p>
-                                    <p id="customer-address-line-one">123 Riverwood Road</p>
-                                    <p id="customer-address-line-two">n/a</p>
-                                    <p id="customer-address-town">Cambridge</p>
-                                    <p id="customer-address-county">Cambridgeshire</p>
-                                    <p id="customer-address-postcode">CB5 6GH</p>
+                                    <p id="customer-name"></p>
+                                    <p id="customer-address-line-one"></p>
+                                    <p id="customer-address-line-two"></p>
+                                    <p id="customer-address-town"></p>
+                                    <p id="customer-address-county"></p>
+                                    <p id="customer-address-postcode"></p>
                                 </div>
                             </div>
                         </div>
@@ -72,12 +72,12 @@
                         <div class="col-md-6">
                             <div class="col-md-12 justify-content-center d-flex">
                                 <div id="company-details">
-                                    <p id="company-name">QuickStorage</p>
-                                    <p id="company-address-line-one">12 Cornell Road</p>
-                                    <p id="company-address-line-two">Histon Industrial Estate</p>
-                                    <p id="company-address-town">Cambridge</p>
-                                    <p id="company-address-county">Cambridgeshire</p>
-                                    <p id="company-address-postcode">CB2 4RF</p>
+                                    <p id="company-name"></p>
+                                    <p id="company-address-line-one"></p>
+                                    <p id="company-address-line-two"></p>
+                                    <p id="company-address-town"></p>
+                                    <p id="company-address-county"></p>
+                                    <p id="company-address-postcode"></p>
                                 </div>
                             </div>
                         </div>
