@@ -15,8 +15,8 @@ function postConfirmation(data) {
             loadPage('invoice.php?application=' + getUrlParameter('application'));
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error); 
+            return false;
     });
 }
 

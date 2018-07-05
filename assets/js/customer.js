@@ -51,14 +51,6 @@ function validateCustomerForm() {
 }
 
 /**
- * Return a string representation of a JSON representation.
- * @param {object} error 
- */
-function getJsonString(error) {
-    return JSON.stringify(error);
-}
-
-/**
  * Perform an AJAX post of the given data to the Customer
  *  API endpoint. On success, will load the next page and 
  *  notifies of errors on failure.
@@ -72,7 +64,7 @@ function postCustomer(data) {
                 'application.php?company=' + getUrlParameter('company') + '&customer=' + response.data.id);
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error);
+            return false;
     });
 }

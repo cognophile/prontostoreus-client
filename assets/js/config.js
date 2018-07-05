@@ -22,6 +22,28 @@ function notify(title, message) {
 }
 
 /**
+ * Return a string representation of a JSON representation.
+ * @param {object} error 
+ */
+function getJsonString(error) {
+    return JSON.stringify(error);
+}
+
+function renderError(error) {
+    console.log(error)
+
+    var title = (!error.success) ? 'Oops!' : '';
+    notify(title, error.error + " " + error.message);  
+}
+
+function renderApiError(error) {
+    console.log(error);
+
+    var title = (!error.responseJSON.success) ? 'Oops!' : '';
+    notify(title, getJsonString(error.responseJSON.message) + ' ' + getJsonString(error.statusText) + ': ' + getJsonString(error.responseJSON.error));  
+}
+
+/**
  * Render a notification to the user and subsequently navigate to
  *  another page.
  * @param {string} title 

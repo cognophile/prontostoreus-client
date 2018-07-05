@@ -50,7 +50,7 @@ function getLocations(userPostcode) {
             addListItem(response);
         })
         .fail(function(error) {
-            notify('Server error!', 'Unable to communicate with the server: ' + error);
+            renderApiError(error);
             return false;
     });
 }
@@ -90,9 +90,8 @@ function addListItem(response) {
         });
     }
     else {
-        notify('Oops!', response.error);
+        renderError(response)
     }
-    
 }
 
 /**

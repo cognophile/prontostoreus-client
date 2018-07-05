@@ -16,8 +16,8 @@ function postApplicationLines(data) {
             notifyAndLoadPage(title, response.message, 
                 'confirmation.php?application=' + response.data.id);
         }).fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error);
+            return false;
         });
 }
 
@@ -27,8 +27,8 @@ function postCreateApplication(data) {
             updateApplicationWithLines(response);
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error);
+            return false;
         });
 }
 
@@ -155,8 +155,7 @@ function getRooms() {
             return renderRoomsDropdown(response.data);
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error); 
             return false;
         });
 }
@@ -167,8 +166,7 @@ function getFurnishings(roomId, lineNumber) {
             return renderFurnishingsDropdown(response.data, lineNumber);
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error);
             return false;
         });
 }
@@ -189,8 +187,7 @@ function getFurnishing(elementId) {
             return setFurnishingSize(response.data, lineId);
         })
         .fail(function(error) {
-            var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+            renderApiError(error);  
             return false;
         });
 
@@ -211,8 +208,7 @@ function getItemPrice(lineId) {
         return setFurnishingPrice(response.data, lineId);
     })
     .fail(function(error) {
-        var title = (!error.responseJSON.success) ? 'Oops!' : '';
-            notify(title, error.responseJSON.message + ' ' + error.statusText + ': ' + getJsonString(error.responseJSON.error));  
+        renderApiError(error);
         return false;
     });
 }
