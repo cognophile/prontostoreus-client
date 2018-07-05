@@ -89,8 +89,6 @@
                         <tr>
                             <th scope="col">Ref</th>
                             <th scope="col">Application Number</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Company</th>
                             <th scope="col">Submission Date</th>
                             <th scope="col">Invoice Issued</th>
                             <th scope="col">Payment Due</th>
@@ -101,8 +99,6 @@
                         <tr>
                         <th scope="row">STJ20180611-1330</th>
                             <td>253</td>
-                            <td>Mr. John Smith</td>
-                            <td>QuickStorage (Cambridge)</td>
                             <td>17th May 2018</td>
                             <td>20th May 2018</td>
                             <td>21st June 2018</td>
