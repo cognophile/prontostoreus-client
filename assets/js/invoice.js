@@ -18,7 +18,7 @@ function renderApplicationCustomer(data) {
     $('#customer-address-town').text(address.town);
     $('#customer-address-county').text(address.county);
 
-    var postcode = address.postcode.split(' ').join('-');
+    var postcode = address.postcode.split('-').join(' ');
     $('#customer-address-postcode').text(postcode);
 }
 
@@ -31,13 +31,12 @@ function renderApplicationCompany(data) {
     $('#company-address-town').text(address.town);
     $('#company-address-county').text(address.county);
 
-    var postcode = address.postcode.split(' ').join('-');
+    var postcode = address.postcode.split('-').join(' ');
     $('#company-address-postcode').text(postcode);
 }
 
 function renderInvoiceData(data) {
     $('#invoice-ref').text(data.reference);
-    $('#invoice-number').text(data.application.id);
 
     var createdDate = extractFormattedDate(data.application.created);
     $('#invoice-submission-date').text(createdDate);
@@ -47,6 +46,9 @@ function renderInvoiceData(data) {
 
     var paymentDueDate = extractFormattedDate(data.due);
     $('#invoice-payment-due-date').text(paymentDueDate);
+
+    var method = (data.application.delivery) ? 'Customer to Deliver' : 'Company to Collect';
+    $('#invoice-method').text(method);
 
     var terms = (data.application.confirmations[0].accepted) ? 'Accepted' : 'Declined';
     $('#invoice-terms').text(terms);
@@ -63,9 +65,9 @@ function renderInvoiceLines(data) {
                         "<th scope=\"row\">" + row + "</th>" + 
                             "<td>" + element.furnishing.room.description + "</td>" + 
                             "<td>" + element.furnishing.description + "</td>" + 
-                            "<td>" + itemCost.toFixed(2) + "</td>" + 
+                            "<td>" + currencySymbol + itemCost.toFixed(2) + "</td>" + 
                             "<td>" + element.quantity + "</td>" +
-                            "<td>" + element.line_cost + "</td>" +
+                            "<td>" + currencySymbol + element.line_cost + "</td>" +
                         "</tr>";
 
         $('#invoice-lines-table > tbody:last-child').append(lineHtml);

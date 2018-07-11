@@ -88,20 +88,20 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">Ref</th>
-                            <th scope="col">Application Number</th>
                             <th scope="col">Submission Date</th>
                             <th scope="col">Invoice Issued</th>
                             <th scope="col">Payment Due</th>
+                            <th scope="col">Method</th>
                             <th scope="col">Terms and Conditions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                         <th scope="row" id="invoice-ref"></th>
-                            <td id="invoice-number"></td>
                             <td id="invoice-submission-date"></td>
                             <td id="invoice-issued-date"></td>
                             <td id="invoice-payment-due-date"></td>
+                            <td id="invoice-method"></td>
                             <td id="invoice-terms"></td>
                         </tr>
                     </tbody>
