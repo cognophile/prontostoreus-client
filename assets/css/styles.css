@@ -169,6 +169,14 @@ input {
     display: none;
 }
 
+#company-name {
+    font-weight: bold;
+}
+
+#customer-name {
+    font-weight: bold;
+}
+
 /* FORM */
 /* Form Elements */
 /* label {
