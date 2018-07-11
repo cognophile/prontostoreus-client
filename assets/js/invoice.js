@@ -1,11 +1,22 @@
 // TODO: Pass invoice ID from metadata to the download button
 
 $(document).ready(function () {
-    applicationId = getUrlParameter('application');
-    getApplicationCustomer(applicationId);
-    getApplicationCompany(applicationId);
-    getInvoiceData(applicationId);
-    getInvoiceLines(applicationId);
+    apiGetStatus(invoiceEndpoint, function (response) {
+        console.log(response);
+        if (response.statusText === "error") {
+            notify('Oops!', 'Server unavailable!');
+        } 
+        else {
+            if (response.success) {
+                var applicationId = getUrlParameter('application');
+    
+                getApplicationCustomer(applicationId);
+                getApplicationCompany(applicationId);
+                getInvoiceData(applicationId);
+                getInvoiceLines(applicationId);
+            }
+        }
+    });
 });
 
 function renderApplicationCustomer(data) {

@@ -31,6 +31,10 @@ function getJsonString(error) {
     return JSON.stringify(error);
 }
 
+/**
+ * Render an error response to the user
+ * @param {*} error 
+ */
 function renderError(error) {
     console.log(error)
 
@@ -38,6 +42,10 @@ function renderError(error) {
     notify(title, error.error + " " + error.message);  
 }
 
+/**
+ * Render an unhandled error from the API to the user
+ * @param {*} error 
+ */
 function renderApiError(error) {
     console.log(error);
 
@@ -158,18 +166,14 @@ function identifyHyperlink(currentPage) {
 
 }
 
-function apiGet(endpoint, data = "") {
-    // $.get(baseApi + endpoint + data)
-    //     .done(function(response) {
-    //         return {
-    //             resultResponse = response
-    //         };
-    //     })
-    //     .fail(function(error) {
-    //         return {
-    //             resultError = error
-    //         };
-    // });
+function apiGetStatus(endpoint, callback) {
+    $.get(baseApi + endpoint)
+        .done(function(response) {
+            callback(response);
+        })
+        .fail(function(error) {
+            callback(error);
+        });
 }
 
 function apiPost(endpoint, data) {
