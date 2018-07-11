@@ -97,12 +97,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                        <th scope="row">STJ20180611-1330</th>
-                            <td>253</td>
-                            <td>17th May 2018</td>
-                            <td>20th May 2018</td>
-                            <td>21st June 2018</td>
-                            <td>Accepted</td>
+                        <th scope="row" id="invoice-ref"></th>
+                            <td id="invoice-number"></td>
+                            <td id="invoice-submission-date"></td>
+                            <td id="invoice-issued-date"></td>
+                            <td id="invoice-payment-due-date"></td>
+                            <td id="invoice-terms"></td>
                         </tr>
                     </tbody>
                 </table>

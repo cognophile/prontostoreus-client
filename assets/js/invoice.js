@@ -1,9 +1,11 @@
+// TODO: Pass invoice ID from metadata to the download button
+
 $(document).ready(function () {
     applicationId = getUrlParameter('application');
     getApplicationCustomer(applicationId);
     getApplicationCompany(applicationId);
-    getApplicationMetadata(applicationId);
-    getApplicationLines(applicationId);
+    getInvoiceData(applicationId);
+    //getApplicationLines(applicationId);
 });
 
 function renderApplicationCustomer(data) {
@@ -33,6 +35,23 @@ function renderApplicationCompany(data) {
     $('#company-address-postcode').text(postcode);
 }
 
+function renderInvoiceData(data) {
+    $('#invoice-ref').text(data.reference);
+    $('#invoice-number').text(data.application.id);
+
+    var createdDate = extractFormattedDate(data.application.created);
+    $('#invoice-submission-date').text(createdDate);
+
+    var issuedDate = extractFormattedDate(data.issued);
+    $('#invoice-issued-date').text(issuedDate);
+
+    var paymentDueDate = extractFormattedDate(data.due);
+    $('#invoice-payment-due-date').text(paymentDueDate);
+
+    var terms = (data.application.confirmations[0].accepted) ? 'Accepted' : 'Declined';
+    $('#invoice-terms').text(terms);
+}
+
 function getApplicationCustomer(applicationId) {
     $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId + '/customer/')
         .done(function(response) {
@@ -48,6 +67,17 @@ function getApplicationCompany(applicationId) {
     $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId + '/company/')
         .done(function(response) {
             return renderApplicationCompany(response.data[0]);
+        })
+        .fail(function(error) {
+            renderApiError(error);
+            return false;
+        });
+}
+
+function getInvoiceData(applicationId) {
+    $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId)
+        .done(function(response) {
+            return renderInvoiceData(response.data[0]);
         })
         .fail(function(error) {
             renderApiError(error);

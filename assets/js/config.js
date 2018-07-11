@@ -141,6 +141,11 @@ function dateFormat(date, format) {
     }
 }
 
+function extractFormattedDate(date) {
+    date = date.substr(0, date.indexOf('T'));
+    return date.replace(/-/g, "/");
+}
+
 function getLineFromElementId(elementId) {
     var lastDelimiter = elementId.lastIndexOf('-');
     var lineNumber = elementId.substring(lastDelimiter + 1);
