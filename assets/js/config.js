@@ -6,6 +6,8 @@ const applicationEndpoint = 'applications/';
 const confirmationEndpoint = 'confirmations/';
 const invoiceEndpoint = 'invoices/';
 
+const currencySymbol = '£';
+
 // TODO: Fuller client function documentation and README config/run instructions
 
 /**

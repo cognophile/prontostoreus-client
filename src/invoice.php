@@ -109,7 +109,7 @@
 
                 <br><br>
                 
-                <table class="table">
+                <table id="invoice-lines-table" class="table">
                     <thead class="thead-light">
                         <tr>
                         <th scope="col">Line</th>
@@ -121,28 +121,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        <th scope="row">1</th>
-                            <td>Living room</td>
-                            <td>Coffee table</td>
-                            <td>£52.99</td>
-                            <td>2</td>
-                            <td>£105.98</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">2</th>
-                            <td>Office</td>
-                            <td>Computer</td>
-                            <td>£30.00</td>
-                            <td>1</td>
-                            <td>£30.00</td>
-                        </tr>
                     </tbody>
                 </table>
                 <div class="col-md-12">
                     <div class="col-md-12 justify-content-end d-flex">
                         <div id="application-details">
-                            <label class="field-label-large">Total: £135.98</label>
+                            <label id="invoice-total-cost" class="field-label-large">Total: </label>
                         </div>
                     </div>
                 </div>

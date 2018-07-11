@@ -132,7 +132,7 @@ function setApplicationTotal(lineNumber) {
         totalCost += parseFloat(currentLineCost);
     }
 
-    $('#total-cost-readonly').html('£' + parseFloat(totalCost).toFixed(2));
+    $('#total-cost-readonly').html(currencySymbol + parseFloat(totalCost).toFixed(2));
 }
 
 function renderRoomsDropdown(data) {
@@ -214,7 +214,7 @@ function getItemPrice(lineId) {
 }
 
 function setFurnishingPrice(data, lineId) {
-    $('#item-price-readonly-' + lineId).html("£" + data.cost);
+    $('#item-price-readonly-' + lineId).html(currencySymbol + data.cost);
     setLinePrice('#item-price-readonly-' + lineId);
 }
 
@@ -225,7 +225,7 @@ function setLinePrice(elementId) {
     var itemPrice = $('#item-price-readonly-' + lineId).html().substring(1);
     var lineCost = quantity * itemPrice;
 
-    $('#line-cost-readonly-' + lineId).html('£' + lineCost.toFixed(2));
+    $('#line-cost-readonly-' + lineId).html(currencySymbol + lineCost.toFixed(2));
     setApplicationTotal(globalLineCounter);
 }
 

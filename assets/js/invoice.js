@@ -5,7 +5,7 @@ $(document).ready(function () {
     getApplicationCustomer(applicationId);
     getApplicationCompany(applicationId);
     getInvoiceData(applicationId);
-    //getApplicationLines(applicationId);
+    getInvoiceLines(applicationId);
 });
 
 function renderApplicationCustomer(data) {
@@ -52,6 +52,28 @@ function renderInvoiceData(data) {
     $('#invoice-terms').text(terms);
 }
 
+function renderInvoiceLines(data) {
+    for (let line = 0; line < data.application_lines.length; line++) {
+        const element = data.application_lines[line];
+        const row = line + 1;
+        var lineCost = parseFloat(element.line_cost).toFixed(2);
+        var itemCost = lineCost / parseInt(element.quantity);
+
+        var lineHtml = "<tr>" + 
+                        "<th scope=\"row\">" + row + "</th>" + 
+                            "<td>" + element.furnishing.room.description + "</td>" + 
+                            "<td>" + element.furnishing.description + "</td>" + 
+                            "<td>" + itemCost.toFixed(2) + "</td>" + 
+                            "<td>" + element.quantity + "</td>" +
+                            "<td>" + element.line_cost + "</td>" +
+                        "</tr>";
+
+        $('#invoice-lines-table > tbody:last-child').append(lineHtml);
+    }
+
+    $('#invoice-total-cost').append(currencySymbol + data.total_cost);
+}
+
 function getApplicationCustomer(applicationId) {
     $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId + '/customer/')
         .done(function(response) {
@@ -78,6 +100,17 @@ function getInvoiceData(applicationId) {
     $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId)
         .done(function(response) {
             return renderInvoiceData(response.data[0]);
+        })
+        .fail(function(error) {
+            renderApiError(error);
+            return false;
+        });
+}
+
+function getInvoiceLines(applicationId) {
+    $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId + "/lines/")
+        .done(function(response) {
+            return renderInvoiceLines(response.data[0]);
         })
         .fail(function(error) {
             renderApiError(error);
