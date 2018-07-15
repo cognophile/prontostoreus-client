@@ -110,7 +110,7 @@ function getApplicationCompany(applicationId) {
 }
 
 function getInvoiceData(applicationId) {
-    $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId)
+    $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId + '/data/')
         .done(function(response) {
             return renderInvoiceData(response.data[0]);
         })
