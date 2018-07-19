@@ -75,7 +75,7 @@ function renderInvoiceLines(data) {
         var lineHtml = "<tr>" + 
                         "<th scope=\"row\">" + row + "</th>" + 
                             "<td>" + element.furnishing.room.description + "</td>" + 
-                            "<td>" + element.furnishing.description + "</td>" + 
+                            "<td>" + element.furnishing.description + " (" + element.furnishing.size + sizeUnit + "/" + element.furnishing.weight + "kg)" + "</td>" + 
                             "<td>" + currencySymbol + itemCost.toFixed(2) + "</td>" + 
                             "<td>" + element.quantity + "</td>" +
                             "<td>" + currencySymbol + element.line_cost + "</td>" +

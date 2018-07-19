@@ -7,6 +7,7 @@ const confirmationEndpoint = 'confirmations/';
 const invoiceEndpoint = 'invoices/';
 
 const currencySymbol = '£';
+const sizeUnit = 'm' + '2'.sup();
 
 // TODO: Fuller client function documentation and README config/run instructions
 
