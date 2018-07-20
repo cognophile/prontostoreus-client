@@ -2,7 +2,6 @@
 
 $(document).ready(function () {
     apiGetStatus(invoiceEndpoint, function (response) {
-        console.log(response);
         if (response.statusText === "error") {
             notify('Oops!', 'Server unavailable!');
         } 
@@ -124,6 +123,19 @@ function getInvoiceLines(applicationId) {
     $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId + "/lines/")
         .done(function(response) {
             return renderInvoiceLines(response.data[0]);
+        })
+        .fail(function(error) {
+            renderApiError(error);
+            return false;
+        });
+}
+
+function getInvoicePdf() {
+    var applicationId = getUrlParameter('application');
+
+    $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId)
+        .done(function(response) {
+            // return renderInvoiceLines(response.data[0]);
         })
         .fail(function(error) {
             renderApiError(error);
