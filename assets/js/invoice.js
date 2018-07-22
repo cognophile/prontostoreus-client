@@ -141,8 +141,9 @@ function getInvoicePdf() {
 
     request.open('GET', baseApi + invoiceEndpoint + 'applications/' + applicationId, true);
     request.responseType = 'arraybuffer';
+    
     request.onload = function (ev) {
-        if (this.status = 201) {
+        if (this.status == 200 || this.status == 201) {
             var file = new Blob([this.response], { type: 'application/pdf' });
             var fileUrl = URL.createObjectURL(file);
             windowPane.location = fileUrl;
