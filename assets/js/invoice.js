@@ -135,16 +135,17 @@ function getInvoiceLines(applicationId) {
 }
 
 function getInvoicePdf() {
+    var request = new XMLHttpRequest();
+    var windowPane = window.open(null, '_blank', 'fullscreen=yes');
     var applicationId = getUrlParameter('application');
 
-    var request = new XMLHttpRequest();
     request.open('GET', baseApi + invoiceEndpoint + 'applications/' + applicationId, true);
     request.responseType = 'arraybuffer';
     request.onload = function (ev) {
         if (this.status = 201) {
             var file = new Blob([this.response], { type: 'application/pdf' });
             var fileUrl = URL.createObjectURL(file);
-            window.open(fileUrl, '_blank', 'fullscreen=yes');
+            windowPane.location = fileUrl;
         }
         else {
             notify('Oops!', this.status + ': ' + this.statusText + ' - ' + 
