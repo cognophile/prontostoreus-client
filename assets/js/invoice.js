@@ -1,5 +1,3 @@
-// TODO: Pass invoice ID from metadata to the download button
-
 $(document).ready(function () {
     apiGetStatus(invoiceEndpoint, function (response) {
         if (response.statusText === "error") {
@@ -56,6 +54,12 @@ function renderInvoiceData(data) {
 
     var paymentDueDate = extractFormattedDate(data.due);
     $('#invoice-payment-due-date').text(paymentDueDate);
+
+    var startDate = extractFormattedDate(data.application.start_date)
+    $('#invoice-start-date').text(startDate);
+
+    var endDate = extractFormattedDate(data.application.end_date)
+    $('#invoice-end-date').text(endDate);
 
     var method = (data.application.delivery) ? 'Customer to Deliver' : 'Company to Collect';
     $('#invoice-method').text(method);
@@ -135,7 +139,7 @@ function getInvoicePdf() {
 
     $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId)
         .done(function(response) {
-            // return renderInvoiceLines(response.data[0]);
+            // Todo: Implement offering of response file to user
         })
         .fail(function(error) {
             renderApiError(error);

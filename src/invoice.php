@@ -91,6 +91,8 @@
                             <th scope="col">Submission Date</th>
                             <th scope="col">Invoice Issued</th>
                             <th scope="col">Payment Due</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
                             <th scope="col">Method</th>
                             <th scope="col">Terms and Conditions</th>
                         </tr>
@@ -101,6 +103,8 @@
                             <td id="invoice-submission-date"></td>
                             <td id="invoice-issued-date"></td>
                             <td id="invoice-payment-due-date"></td>
+                            <td id="invoice-start-date"></td>
+                            <td id="invoice-end-date"></td>
                             <td id="invoice-method"></td>
                             <td id="invoice-terms"></td>
                         </tr>
