@@ -50,7 +50,9 @@
                         <label class="field-label-large-center">Thank you for your application!</label>
                     </div>
                     <div>
-                        <label class="field-label-center">We'll submit this to your chosen company and pass on your contact details. Below, you'll find a summary of your application. A pdf copy is available via the 'Download' button.</p>
+                        <label class="field-label-center">We'll submit this to your chosen company and pass on your contact details. Below, you'll find a summary of your application. A PDF copy is available via the 'Download' button.
+                        We'll update you on progress via email from here on. If you need to contact the company, you can find their details below. Please note your selected company will contact you within 3 days of this 
+                        invoices date of issue to arrange the collection or delivery of your belongings to their facility, and to take payment.</p>
                     </div>
                 </div>
                 <br>

@@ -137,12 +137,21 @@ function getInvoiceLines(applicationId) {
 function getInvoicePdf() {
     var applicationId = getUrlParameter('application');
 
-    $.get(baseApi + invoiceEndpoint + 'applications/' + applicationId)
-        .done(function(response) {
-            // Todo: Implement offering of response file to user
-        })
-        .fail(function(error) {
-            renderApiError(error);
-            return false;
-        });
+    var request = new XMLHttpRequest();
+    request.open('GET', baseApi + invoiceEndpoint + 'applications/' + applicationId, true);
+    request.responseType = 'arraybuffer';
+    request.onload = function (ev) {
+        if (this.status = 201) {
+            var file = new Blob([this.response], { type: 'application/pdf' });
+            var fileUrl = URL.createObjectURL(file);
+            window.open(fileUrl, '_blank', 'fullscreen=yes');
+        }
+        else {
+            notify('Oops!', this.status + ': ' + this.statusText + ' - ' + 
+                'We\'re unable to download your invoice at this time - apologies!' 
+                + 'Fear not - you can print this page via the \'Print\' button below.');
+        }
+    }
+
+    request.send();
 }
