@@ -10,7 +10,7 @@ function acceptTerms(selection) {
 }
 
 function postConfirmation(data) {
-    $.post(baseApi + confirmationEndpoint, data)
+    $.post(baseApi + confirmationEndpoint + 'update/', data)
         .done(function(response) {
             loadPage('invoice.php?application=' + getUrlParameter('application'));
         })

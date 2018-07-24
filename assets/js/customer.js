@@ -57,7 +57,7 @@ function validateCustomerForm() {
  * @param {array} data 
  */
 function postCustomer(data) {
-    $.post(baseApi + customerEndpoint, data)
+    $.post(baseApi + customerEndpoint + 'add/', data)
         .done(function(response) {
             var title = (response.success) ? 'Got it!' : '';
             notifyAndLoadPage(title, response.message, 

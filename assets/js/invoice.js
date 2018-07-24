@@ -22,7 +22,10 @@ function renderApplicationCustomer(data) {
     
     var address = data.customer.addresses[0];
     $('#customer-address-line-one').text(address.line_one);
-    $('#customer-address-line-two').text(address.line_two);
+
+    var lineTwo = (address.line_two) ? address.line_two : '';
+    $('#customer-address-line-two').text(lineTwo);
+
     $('#customer-address-town').text(address.town);
     $('#customer-address-county').text(address.county);
 
@@ -35,7 +38,10 @@ function renderApplicationCompany(data) {
 
     var address = data.company.addresses[0];
     $('#company-address-line-one').text(address.line_one);
-    $('#company-address-line-two').text(address.line_two);
+
+    var lineTwo = (address.line_two && address.line_two !== "null") ? address.line_two : '';
+    $('#company-address-line-two').text(lineTwo);
+
     $('#company-address-town').text(address.town);
     $('#company-address-county').text(address.county);
 
@@ -64,7 +70,7 @@ function renderInvoiceData(data) {
     var method = (data.application.delivery) ? 'Customer to Deliver' : 'Company to Collect';
     $('#invoice-method').text(method);
 
-    var terms = (data.application.confirmations[0].accepted) ? 'Accepted' : 'Declined';
+    var terms = (data.application.confirmations.length > 0) ? (data.application.confirmations[0].accepted) ? 'Accepted' : 'Declined' : 'Unknown';
     $('#invoice-terms').text(terms);
 }
 

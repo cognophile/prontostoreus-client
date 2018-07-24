@@ -111,7 +111,6 @@ function updateApplicationWithLines(applicationResponse) {
 
         if (isValid) {
             var line = mapApplicationLineData(applicationData.id, lineData);
-            // TODO: Remove client knowledge of field names
             applicationData.application_lines['line_' + i] = line;
         } 
         else {
