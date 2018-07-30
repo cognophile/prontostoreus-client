@@ -1,16 +1,17 @@
 function acceptTerms(selection) {
     var dateFormatted = dateFormat(new Date(), 'Y-m-d h:i:s');
+    var applicationId = getUrlParameter('application');
     var data = {
-       'application_id': getUrlParameter('application'),
+       'application_id': applicationId,
        'accepted': + selection,
        'date_accepted':  dateFormatted
     };
 
-    postConfirmation(data);
+    postConfirmation(data, applicationId);
 }
 
 function postConfirmation(data) {
-    $.post(baseApi + confirmationEndpoint + 'update/', data)
+    $.post(baseApi + confirmationEndpoint + 'applications/' + applicationId + 'update/', data)
         .done(function(response) {
             loadPage('invoice.php?application=' + getUrlParameter('application'));
         })
