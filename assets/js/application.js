@@ -159,7 +159,11 @@ function getRooms() {
         });
 }
 
-function getFurnishings(roomId, lineNumber) {
+function getAllFurnishings(roomId, lineNumber) {
+    if (roomId == null) {
+        return false;
+    }
+
     $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/")
         .done(function(response) {
             return renderFurnishingsDropdown(response.data, lineNumber);
@@ -173,13 +177,18 @@ function getFurnishings(roomId, lineNumber) {
 function setFurnishingList(roomSelector) {
     var lineId = getLineFromElementId(roomSelector);
     var roomId = $('#' + roomSelector).val();
-    getFurnishings(roomId, lineId);
+    getAllFurnishings(roomId, lineId);
 }
 
-function getFurnishing(elementId) {
+function getOneFurnishing(elementId) {
     var lineId = getLineFromElementId(elementId);
     var roomId = $('#room-selector-' + lineId).val();
     var furnishingId = $('#furnishing-selector-' + lineId).val();
+
+
+    if (roomId == null || furnishingId == null) {
+        return false;
+    }
 
     $.get(baseApi + applicationEndpoint + "room/" + roomId + "/furnishing/" + furnishingId)
         .done(function(response) {
@@ -201,10 +210,14 @@ function setFurnishingSize(data, lineId) {
 function getItemPrice(lineId) {
     var companyId = getUrlParameter('company');
     var furnishingId = $('#furnishing-selector-' + lineId).val();
+
+    if (companyId == 0 || furnishingId == 0) {
+        return false;
+    }
     
     $.get(baseApi + applicationEndpoint + "company/" + companyId + "/furnishing/" + furnishingId)
     .done(function(response) {
-        return setFurnishingPrice(response.data, lineId);
+        return setFurnishingPrice(response.data[0], lineId);
     })
     .fail(function(error) {
         renderApiError(error);
@@ -248,13 +261,13 @@ function doAddLine(lineNumber) {
         "<div class=\"col\">" +
             "<label id=\"room-selector-label\" class=\"field-label\">Room</label>" +
             "<select id=\"room-selector-" + lineNumber + "\" class=\"form-control\" name=\"room\" onchange=\"setFurnishingList(this.id)\" required=\"true\">" + 
-                "<option value=0> -- Select a room -- </option>" +
+                "<option disabled selected value> -- Select a room -- </option>" +
             "</select>" +
         "</div>" +
         "<div class=\"col\">" +
             "<label id=\"furnishing-selector-label\" class=\"field-label\">Furnishing</label>" +
-            "<select id=\"furnishing-selector-" + lineNumber + "\" class=\"form-control\" name=\"furnishing\" onchange=\"getFurnishing(this.id)\" required=\"true\">" +
-                "<option value=0> -- Select a furnishing -- </option>" +
+            "<select id=\"furnishing-selector-" + lineNumber + "\" class=\"form-control\" name=\"furnishing\" onchange=\"getOneFurnishing(this.id)\" required=\"true\">" +
+                "<option disabled selected value> -- Select a furnishing -- </option>" +
             "</select>" +
         "</div>" +
 
