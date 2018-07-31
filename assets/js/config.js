@@ -177,7 +177,13 @@ function apiGetStatus(endpoint, callback) {
         });
 }
 
-function apiPost(endpoint, data) {
-
+function apiPost(endpoint, data, callback) {
+    $.post(baseApi + endpoint, data)
+        .done(function(response) {
+            callback(response);
+        })
+        .fail(function(error) {
+            callback(error);
+        });
 }
 
