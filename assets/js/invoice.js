@@ -7,6 +7,7 @@ $(document).ready(function () {
             if (response.success) {
                 var applicationId = getUrlParameter('application');
     
+                createInvoice(applicationId);
                 getApplicationCustomer(applicationId);
                 getApplicationCompany(applicationId);
                 getInvoiceData(applicationId);
@@ -94,6 +95,17 @@ function renderInvoiceLines(data) {
     }
 
     $('#invoice-total-cost').append(currencySymbol + data.total_cost);
+}
+
+function createInvoice(applicationId) {
+    $.post(baseApi + invoiceEndpoint + 'applications/' + applicationId + '/add/', [])
+        .done(function(response) {
+            return true;
+        })
+        .fail(function(error) {
+            renderApiError(error);
+            return false;
+        });
 }
 
 function getApplicationCustomer(applicationId) {
