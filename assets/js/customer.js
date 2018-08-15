@@ -8,6 +8,14 @@ $(document).keypress(function(ev) {
     }
 });
 
+$(document).ready(function () {
+    $("#dob-input").datepicker({
+        dateFormat: "yy/mm/dd",
+        changeYear: true,
+        yearRange: "-100:+0"
+    });
+});
+
 /**
  * Perform validation of the customer form before calling to post 
  *  the form data to the API.
