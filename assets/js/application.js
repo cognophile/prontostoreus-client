@@ -1,8 +1,17 @@
 var globalLineCounter = 1;
 
 $(document).ready(function () {
-    $("#start-date-input").datepicker({dateFormat: "yy-mm-dd"});
-    $("#end-date-input").datepicker({dateFormat: "yy-mm-dd"});
+    $("#start-date-input").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        yearRange: "-0:+10"
+    });
+    
+    $("#end-date-input").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        yearRange: "-0:+10"
+    });
 
     addInitialLine(globalLineCounter);
 });
@@ -21,29 +30,17 @@ function postApplicationLines(data) {
         });
 }
 
-function postCreateApplication(data) {
+function postApplication(data) {
     $.post(baseApi + applicationEndpoint + "add/", data)
         .done(function(response) {
-            updateApplicationWithLines(response);
+            var title = (response.success) ? 'Got it!' : '';
+            notifyAndLoadPage(title, response.message, 
+                'confirmation.php?application=' + response.data.id);
         })
         .fail(function(error) {
             renderApiError(error);
             return false;
         });
-}
-
-function mapApplicationMetaData(metaData) {
-    var postApplication = {
-        'customer_id': getUrlParameter('customer'),
-        'company_id': getUrlParameter('company'),
-        'delivery': metaData[0],
-        'start_date': metaData[1],
-        'end_date': metaData[2],
-        'total_cost': metaData[3],
-        'application_lines': []
-    };
-
-    return postApplication;
 }
 
 function calculateTotal(applicationData) {
@@ -52,17 +49,6 @@ function calculateTotal(applicationData) {
     });
 
     return applicationData;
-}
-
-function mapApplicationLineData(applicationId, lineData) {
-    var line = {
-        'application_id': applicationId,
-        'furnishing_id': lineData[0],
-        'quantity': lineData[1],
-        'line_cost': lineData[2]
-    }
-
-    return line;
 }
 
 function sendApplication() {
@@ -77,29 +63,54 @@ function createApplication() {
 
     var metaData = [delivery, startDate, endDate, totalCost];
     var applicationData = mapApplicationMetaData(metaData);
+    applicationData = appendApplicationLines(applicationData);
     
-    postCreateApplication(applicationData);
+    postApplication(applicationData);
 }
 
-function resetApplicaitonValues(application) {
-    var deliveryBool = application.delivery;
-    var cancelledBool = application.cancelled;
-    var startDate = application.start_date.substring(0, application.start_date.indexOf('T'));
-    var endDate = application.end_date.substring(0, application.end_date.indexOf('T'));
+function mapApplicationMetaData(metaData) {
+    var postApplication = {
+        'customer_id': getUrlParameter('customer'),
+        'company_id': getUrlParameter('company'),
+        'delivery': metaData[0],
+        'start_date': metaData[1],
+        'end_date': metaData[2],
+        'total_cost': metaData[3],
+        'application_lines': {}
+    };
 
-    application.delivery = +deliveryBool;
-    application.cancelled = +cancelledBool;
-    application.start_date = startDate;
-    application.end_date = endDate;
-
-    application.application_lines = {};
-
-    return application;
+    return postApplication;
 }
 
-function updateApplicationWithLines(applicationResponse) {
-    var applicationData = applicationResponse.data;
-    applicationData = resetApplicaitonValues(applicationData);
+function mapApplicationLineData(applicationId, lineData) {
+    var line = {
+        'application_id': applicationId,
+        'furnishing_id': lineData[0],
+        'quantity': lineData[1],
+        'line_cost': lineData[2]
+    }
+
+    return line;
+}
+
+// function resetApplicaitonValues(application) {
+//     var deliveryBool = application.delivery;
+//     var cancelledBool = application.cancelled;
+//     var startDate = application.start_date.substring(0, application.start_date.indexOf('T'));
+//     var endDate = application.end_date.substring(0, application.end_date.indexOf('T'));
+
+//     application.delivery = +deliveryBool;
+//     application.cancelled = +cancelledBool;
+//     application.start_date = startDate;
+//     application.end_date = endDate;
+
+//     application.application_lines = {};
+
+//     return application;
+// }
+
+function appendApplicationLines(applicationData) {
+    // applicationData = resetApplicaitonValues(applicationData);
 
     for (var i = 1; i <= globalLineCounter; i++) {
         var furnishingId = $('#furnishing-selector-' + i).val();
@@ -118,8 +129,8 @@ function updateApplicationWithLines(applicationResponse) {
             return false;
         }
     } 
-    
-    postApplicationLines(applicationData);
+
+    return applicationData
 }
 
 // Application Lines Functions
