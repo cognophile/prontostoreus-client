@@ -21,6 +21,11 @@
             <!-- Include Bootbox.js library  -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
             
+            <!-- Include jQuery UI widgets -->
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
             <!-- Include custom Prontostoreus JavaScript-->
             <script src="../assets/js/config.js"></script>
             <script src="../assets/js/customer.js"></script>
@@ -59,7 +64,7 @@
         
                     <div class="col">
                         <label id="dob-label" class="field-label-large" for="dob-input">Date of birth</label>
-                        <input id="dob-input" class="form-control" type="text" name="dob" maxlength="10" placeholder="e.g. yyyy/mm/dd">  
+                        <input id="dob-input" class="form-control" type="text" name="dob" required="true">
                     </div>
                 </div>
         
