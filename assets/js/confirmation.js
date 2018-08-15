@@ -10,8 +10,8 @@ function acceptTerms(selection) {
     postConfirmation(data, applicationId);
 }
 
-function postConfirmation(data) {
-    $.post(baseApi + confirmationEndpoint + 'applications/' + applicationId + 'update/', data)
+function postConfirmation(data, applicationId) {
+    $.post(baseApi + confirmationEndpoint + 'applications/' + applicationId + '/update/', data)
         .done(function(response) {
             loadPage('invoice.php?application=' + getUrlParameter('application'));
         })
