@@ -21,7 +21,7 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
             
             <!-- Include custom Prontostoreus JavaScript-->
-            <script src="../assets/js/config.js"></script>
+            <script src="../config/bootstrap.js"></script>
             <script src="../assets/js/location.js"></script>
 
             <title> Prontostoreus - Location </title>

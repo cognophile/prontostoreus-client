@@ -1,4 +1,4 @@
-const baseApi = 'http://localhost:8765/';
+const baseApi = 'http://localhost:8765/api/v1/';
 
 const locationEndpoint = 'locations/';
 const customerEndpoint = 'customers/';

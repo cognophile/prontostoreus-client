@@ -27,7 +27,7 @@
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             
             <!-- Include custom Prontostoreus JavaScript-->
-            <script src="../assets/js/config.js"></script>
+            <script src="../config/bootstrap.js"></script>
             <script src="../assets/js/application.js"></script>
 
             <title> Prontostoreus - Application </title>
